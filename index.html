@@ -5,34 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة التعلم الذكي</title> <!-- This will be updated by JS -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7696225868255842" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7696225868255842">
     <style>
         :root {
-            --bg-dark-primary: #10101A;
-            --bg-dark-secondary: #1A1A2E;
-            --bg-dark-tertiary: #24243E;
+            --bg-dark-primary: #12121B;
+            --bg-dark-secondary: #1C1C2F;
+            --bg-dark-tertiary: #282844;
             --text-light-primary: #F0F0F8;
             --text-light-secondary: #A0A0C0;
-            --accent-primary: #00A8E8;
-            --accent-secondary: #007EA7;
-            --accent-tertiary: #FFD700;
-            --border-color: #30304A;
-            --shadow-color-light: rgba(0, 168, 232, 0.2);
-            --shadow-color-dark: rgba(0, 0, 0, 0.4);
+            --accent-primary: #00BFFF; /* DeepSkyBlue */
+            --accent-secondary: #009ACD;
+            --accent-tertiary: #FFC107; /* Amber */
+            --border-color: #38385A;
+            --shadow-color-light: rgba(0, 191, 255, 0.25);
+            --shadow-color-dark: rgba(0, 0, 0, 0.3);
             --font-ar: 'Cairo', sans-serif;
             --font-en: 'Roboto', sans-serif;
             --border-radius-sm: 6px;
             --border-radius-md: 10px;
             --border-radius-lg: 16px;
+            --border-radius-xl: 20px; /* New */
+            --transition-fast: 0.2s ease-out;
+            --transition-medium: 0.3s ease-out;
+            --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
 
         body {
-            background: linear-gradient(135deg, var(--bg-dark-primary) 0%, #181828 100%);
+            background: linear-gradient(135deg, var(--bg-dark-primary) 0%, #1A1A2A 100%);
             color: var(--text-light-primary);
             line-height: 1.8;
             font-size: 16px;
+            font-family: var(--font-ar), sans-serif; /* Default to AR, JS will update */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
@@ -47,29 +56,30 @@
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 8px;
-            background-color: rgba(16, 16, 26, 0.85);
-            padding: 6px 12px;
+            gap: 10px; /* Increased gap */
+            background-color: rgba(22, 22, 38, 0.85); /* Slightly darker */
+            padding: 8px 14px; /* Increased padding */
             border-radius: var(--border-radius-md);
-            box-shadow: 0 4px 12px var(--shadow-color-dark);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            transition: background-color 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow-color-dark);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: background-color var(--transition-medium);
         }
         .language-switcher-container:hover {
-            background-color: rgba(16, 16, 26, 0.95);
+            background-color: rgba(22, 22, 38, 0.98);
         }
         .language-label {
             color: var(--text-light-secondary);
-            font-size: 1em;
+            font-size: 1.2em; /* Slightly larger icon */
             font-weight: 500;
-            margin-inline-end: 4px;
+            margin-inline-end: 2px;
+            line-height: 1; /* For better vertical alignment */
         }
         #languageSelect {
-            background-color: rgba(40, 40, 62, 0.8);
+            background-color: rgba(45, 45, 70, 0.85); /* Slightly adjusted */
             color: var(--text-light-primary);
             border: 1px solid var(--border-color);
-            padding: 8px 12px; 
+            padding: 10px 15px; 
             border-radius: var(--border-radius-sm);
             cursor: pointer;
             font-size: 0.95em;
@@ -78,19 +88,19 @@
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2300A8E8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2300BFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E');
             background-repeat: no-repeat;
-            background-position: right 0.7em top 50%, 0 0; /* Default LTR */
-            background-size: .65em auto, 100%;
-            padding-right: 2.5em; /* Default for LTR */
-            padding-left: 0.7em;  /* Default for LTR */
-            transition: border-color 0.2s, box-shadow 0.2s;
+            background-position: right 0.8em top 50%, 0 0; /* Default LTR */
+            background-size: .7em auto, 100%; /* Slightly larger arrow */
+            padding-right: 2.8em; /* Default for LTR */
+            padding-left: 1em;  /* Default for LTR */
+            transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
         }
         #languageSelect:focus {
             border-color: var(--accent-primary);
-            box-shadow: 0 0 0 2px var(--shadow-color-light);
+            box-shadow: 0 0 0 3px var(--shadow-color-light);
         }
-        #languageSelect:hover { background-color: rgba(50, 50, 72, 0.9); }
+        #languageSelect:hover { background-color: rgba(55, 55, 82, 0.95); }
         #languageSelect option { background-color: var(--bg-dark-tertiary); color: var(--text-light-primary); }
 
 
@@ -99,182 +109,267 @@
         .welcome-section {
             position: relative;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; padding: 80px 20px 60px 20px; min-height: 60vh;
-            background: radial-gradient(circle, rgba(26,26,46,0.8) 0%, rgba(16,16,26,0.9) 70%),
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path d="M10 10 Q20 0 30 10 T50 10 T70 10 T90 10 M10 30 Q20 20 30 30 T50 30 T70 30 T90 30 M10 50 Q20 40 30 50 T50 50 T70 50 T90 50 M10 70 Q20 60 30 70 T50 70 T70 70 T90 70 M10 90 Q20 80 30 90 T50 90 T70 90 T90 90" stroke="%23F0F0F8" fill="none" stroke-width="1"/></svg>');
-            background-size: cover, 200px;
-            animation: fadeInWelcome 1s ease-out;
+            text-align: center; padding: 100px 20px 70px 20px; min-height: 65vh; /* Increased padding and min-height */
+            background: radial-gradient(circle, rgba(26,26,46,0.85) 0%, rgba(18,18,27,0.95) 70%),
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.07"><path d="M10 10 Q20 0 30 10 T50 10 T70 10 T90 10 M10 30 Q20 20 30 30 T50 30 T70 30 T90 30 M10 50 Q20 40 30 50 T50 50 T70 50 T90 50 M10 70 Q20 60 30 70 T50 70 T70 70 T90 70 M10 90 Q20 80 30 90 T50 90 T70 90 T90 90" stroke="%23009ACD" fill="none" stroke-width="1.2"/></svg>'); /* Updated pattern */
+            background-size: cover, 250px; /* Larger pattern */
+            animation: fadeInWelcome 1.2s ease-out;
         }
-        @keyframes fadeInWelcome { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .welcome-section h1 { font-size: 3.5em; font-weight: 700; color: #ffffff; margin-bottom: 20px; letter-spacing: -1px; text-shadow: 0 2px 10px var(--shadow-color-dark); }
-        .welcome-section .subtitle { font-size: 1.4em; color: var(--text-light-secondary); margin-bottom: 35px; max-width: 600px; }
-        .cta-button { background-color: var(--accent-primary); color: #ffffff; padding: 15px 35px; font-size: 1.2em; font-weight: 600; border: none; border-radius: var(--border-radius-md); cursor: pointer; text-decoration: none; transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; box-shadow: 0 4px 15px rgba(0, 168, 232, 0.3); }
-        .cta-button:hover { background-color: var(--accent-secondary); transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0, 168, 232, 0.4); }
+        @keyframes fadeInWelcome { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
+        .welcome-section h1 { font-size: 3.8em; font-weight: 700; color: #ffffff; margin-bottom: 25px; letter-spacing: -1.5px; text-shadow: 0 3px 15px var(--shadow-color-dark); }
+        .welcome-section .subtitle { font-size: 1.45em; color: var(--text-light-secondary); margin-bottom: 40px; max-width: 650px; }
+        .cta-button { 
+            background-color: var(--accent-primary); 
+            color: #ffffff; 
+            padding: 16px 40px; 
+            font-size: 1.25em; 
+            font-weight: 600; 
+            border: none; 
+            border-radius: var(--border-radius-md); 
+            cursor: pointer; text-decoration: none; 
+            transition: background-color var(--transition-medium), transform var(--transition-medium), box-shadow var(--transition-medium); 
+            box-shadow: 0 5px 20px rgba(0, 191, 255, 0.35); 
+        }
+        .cta-button:hover, .cta-button:focus { 
+            background-color: var(--accent-secondary); 
+            transform: translateY(-4px) scale(1.02); 
+            box-shadow: 0 8px 25px rgba(0, 191, 255, 0.45); 
+            outline: none;
+        }
 
         .main-content-area {
             width: 90%;
-            max-width: 950px;
-            margin: 0 auto 40px auto;
-            padding: 30px 35px;
+            max-width: 1000px; /* Increased max-width */
+            margin: 0 auto 50px auto;
+            padding: 35px 40px; /* Increased padding */
             background-color: var(--bg-dark-secondary);
-            border-radius: var(--border-radius-lg);
-            box-shadow: 0 10px 40px var(--shadow-color-dark);
+            border-radius: var(--border-radius-xl); /* Larger radius */
+            box-shadow: 0 15px 50px var(--shadow-color-dark);
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1), margin-top 0.6s cubic-bezier(0.4,0,0.2,1);
+            transition: opacity var(--transition-smooth), transform var(--transition-smooth), margin-top var(--transition-smooth);
         }
         .main-content-area.visible {
             opacity: 1;
             transform: translateY(0);
-            margin-top: -80px;
+            margin-top: -100px; /* Adjust for larger welcome section */
         }
-        .content-header { text-align: center; margin-bottom: 30px; }
-        .content-header h2 { font-size: 2.2em; color: var(--text-light-primary); margin-bottom: 10px; }
-        .content-header p { color: var(--text-light-secondary); font-size: 1.1em; }
+        .content-header { text-align: center; margin-bottom: 35px; }
+        .content-header h2 { font-size: 2.4em; color: var(--text-light-primary); margin-bottom: 12px; }
+        .content-header p { color: var(--text-light-secondary); font-size: 1.15em; }
+        
         .search-bar-container {
             position: relative;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             display: flex;
             align-items: center;
         }
         #mainSearchInput {
             width: 100%;
-            padding: 16px 25px 16px 60px;
+            padding: 18px 25px 18px 65px; /* Adjusted for icon */
             border: 1px solid var(--border-color);
             border-radius: var(--border-radius-md);
             background-color: var(--bg-dark-tertiary);
             color: var(--text-light-primary);
-            font-size: 1.1em;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            font-size: 1.15em;
+            transition: border-color var(--transition-medium), box-shadow var(--transition-medium);
         }
-        html[dir="ltr"] #mainSearchInput { padding: 16px 60px 16px 25px; }
+        html[dir="ltr"] #mainSearchInput { padding: 18px 65px 18px 25px; }
         #mainSearchInput:focus {
             outline: none;
             border-color: var(--accent-primary);
-            box-shadow: 0 0 0 3px var(--shadow-color-light);
+            box-shadow: 0 0 0 4px var(--shadow-color-light);
         }
-        #mainSearchInput::placeholder { color: var(--text-light-secondary); opacity: 0.7; }
+        #mainSearchInput::placeholder { color: var(--text-light-secondary); opacity: 0.6; }
         .search-icon-main {
             position: absolute;
             top: 50%;
-            right: 20px;
+            right: 22px; /* Adjusted for new padding */
             transform: translateY(-50%);
             color: var(--text-light-secondary);
-            font-size: 1.5em;
+            font-size: 1.4em; /* For SVG */
             pointer-events: none;
+            display: flex; align-items: center;
         }
-        html[dir="ltr"] .search-icon-main { right: auto; left: 20px; }
+        html[dir="ltr"] .search-icon-main { right: auto; left: 22px; }
+        
         .clear-search-btn {
             position: absolute;
             top: 50%;
-            left: 45px;
+            left: 20px; /* Adjusted */
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: var(--accent-primary);
-            font-size: 1.2em;
+            color: var(--text-light-secondary); /* SVG color */
+            font-size: 1.1em; /* For SVG container */
             cursor: pointer;
-            display: none;
+            display: none; /* JS handles visibility */
+            padding: 8px; /* Clickable area */
+            line-height: 1;
+            border-radius: 50%;
+            transition: color var(--transition-fast), background-color var(--transition-fast);
         }
-        html[dir="ltr"] .clear-search-btn { left: auto; right: 45px; }
-        .clear-search-btn.visible { display: block; }
+        html[dir="ltr"] .clear-search-btn { left: auto; right: 20px; }
+        .clear-search-btn.visible { display: flex; align-items: center; justify-content:center; }
+        .clear-search-btn:hover, .clear-search-btn:focus { 
+            color: var(--accent-primary); 
+            background-color: rgba(255,255,255,0.05);
+            outline: none;
+        }
+
 
         .department-card {
-            margin-bottom: 25px;
-            border-radius: var(--border-radius-md);
+            margin-bottom: 30px;
+            border-radius: var(--border-radius-lg); /* Slightly larger radius */
             background-color: var(--bg-dark-tertiary);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 6px 18px rgba(0,0,0,0.25);
             overflow: hidden;
-            transition: box-shadow 0.3s, transform 0.3s;
+            transition: box-shadow var(--transition-medium), transform var(--transition-medium);
             outline: none;
         }
         .department-card:focus-within, .department-card:hover {
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            transform: translateY(-4px) scale(1.005); /* Subtle scale */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.35);
         }
         .department-header {
-            background-image: linear-gradient(to right, var(--bg-dark-secondary), #202038);
+            background-image: linear-gradient(to right, var(--bg-dark-secondary), #22223A);
             color: #ffffff;
-            padding: 20px 25px;
+            padding: 22px 30px;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            transition: background-color 0.3s;
+            transition: background-image var(--transition-medium);
             border-bottom: 1px solid var(--border-color);
             outline: none;
         }
         .department-header:focus, .department-header.active {
             background-image: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+            color: #fff;
         }
-        .department-header h3 { margin: 0; font-size: 1.6em; font-weight: 600; }
-        .toggle-icon { font-size: 1.4em; transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); color: var(--accent-primary); }
-        .department-header.active .toggle-icon { transform: rotate(135deg); color: #fff; }
-        .subject-list { list-style: none; padding: 0; margin: 0; max-height: 0; overflow: hidden; transition: max-height 0.5s, padding 0.5s; background-color: var(--bg-dark-tertiary); }
+        .department-header h3 { margin: 0; font-size: 1.7em; font-weight: 600; display: flex; align-items: center; }
+        .department-header h3 .dept-icon { 
+            font-size: 1.1em; 
+            margin-inline-end: 12px; /* Replaces specific margin-left/right logic in JS */
+        }
+        .toggle-icon { 
+            font-size: 1.5em; /* SVG container */
+            transition: transform var(--transition-smooth); 
+            color: var(--accent-primary);
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+        }
+        .department-header.active .toggle-icon { transform: rotate(180deg); color: #fff; }
+        
+        .subject-list { list-style: none; padding: 0; margin: 0; max-height: 0; overflow: hidden; transition: max-height var(--transition-smooth), padding var(--transition-smooth); background-color: var(--bg-dark-tertiary); }
         .department-header.active + .subject-list { max-height: 800px; padding: 10px 0; }
-        .subject-item { padding: 15px 30px; border-top: 1px solid #2a2a42; transition: background-color 0.2s, padding-right 0.2s, padding-left 0.2s; border-radius: var(--border-radius-sm); }
-        html[dir="ltr"] .subject-item:hover, html[dir="ltr"] .subject-item:focus-within { padding-left: 35px; padding-right: 30px; background-color: #2f2f4f; }
-        html[dir="rtl"] .subject-item:hover, html[dir="rtl"] .subject-item:focus-within { padding-right: 35px; padding-left: 30px; background-color: #2f2f4f; }
+        
+        .subject-item { 
+            padding: 18px 30px; 
+            border-top: 1px solid var(--border-color); 
+            transition: background-color var(--transition-fast), border-color var(--transition-fast), padding var(--transition-fast);
+            /* border-radius: var(--border-radius-sm); No need for radius here as it's inside a list */
+            border-left: 3px solid transparent; /* LTR default */
+            border-right: 3px solid transparent; /* RTL default */
+        }
+        html[dir="ltr"] .subject-item:hover, html[dir="ltr"] .subject-item:focus-within { 
+            background-color: #2A2A4A; 
+            border-left-color: var(--accent-primary);
+            padding-left: 27px; /* 30px original - 3px border */
+        }
+        html[dir="rtl"] .subject-item:hover, html[dir="rtl"] .subject-item:focus-within { 
+            background-color: #2A2A4A; 
+            border-right-color: var(--accent-primary);
+            padding-right: 27px; /* 30px original - 3px border */
+        }
         .subject-item:first-child { border-top: none; }
-        .subject-item a { color: var(--accent-primary); text-decoration: none; display: flex; align-items: center; font-size: 1.1em; font-weight: 500; transition: color 0.2s; outline: none; }
+        .subject-item a { color: var(--accent-primary); text-decoration: none; display: flex; align-items: center; font-size: 1.1em; font-weight: 500; transition: color var(--transition-fast); outline: none; }
         .subject-item a:focus, .subject-item a:hover { color: var(--accent-tertiary); text-decoration: underline; }
-        .subject-item a .subject-icon { margin-left: 10px; font-size: 1.2em; }
-        html[dir="ltr"] .subject-item a .subject-icon { margin-left: 0; margin-right: 10px; }
+        .subject-item a .subject-icon { 
+            font-size: 1.2em;
+            margin-inline-end: 12px; /* Replaces specific margin-left/right logic */
+        }
         .subject-item.hidden { display: none; }
-        .no-results-message { text-align:center; padding:25px; color:var(--text-light-secondary); font-size:1.1em; }
+        .no-results-message { text-align:center; padding:30px; color:var(--text-light-secondary); font-size:1.15em; }
 
-        .app-footer { text-align: center; padding: 30px 20px; margin-top: auto; background-color: var(--bg-dark-primary); border-top: 1px solid var(--border-color); }
+        .app-footer { text-align: center; padding: 35px 20px; margin-top: auto; background-color: var(--bg-dark-primary); border-top: 1px solid var(--border-color); }
         .app-footer .footer-links {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
             font-size: 0.95em;
         }
         .app-footer .footer-links a {
             color: var(--text-light-secondary);
             text-decoration: none;
-            margin: 0 8px;
-            transition: color 0.2s;
+            margin: 0 10px; /* Increased margin */
+            transition: color var(--transition-fast), text-decoration var(--transition-fast);
         }
         .app-footer .footer-links a:hover,
         .app-footer .footer-links a:focus {
             color: var(--accent-primary);
             text-decoration: underline;
-            outline: none; /* Optional: remove default focus outline if you prefer underline only */
+            outline: none; 
         }
-        .app-footer .copyright { margin-top: 10px; font-size: 0.9em; color: #707090; }
+        .app-footer .copyright { margin-top: 12px; font-size: 0.9em; color: #707090; }
 
-        .placeholder-page-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(16, 16, 26, 0.85); backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: opacity 0.3s, visibility 0.3s; }
+        .placeholder-page-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background-color: rgba(18, 18, 27, 0.9); /* Darker overlay */
+            backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); 
+            display: flex; align-items: center; justify-content: center; z-index: 2000; /* Higher z-index */
+            opacity: 0; visibility: hidden; 
+            transition: opacity var(--transition-medium), visibility var(--transition-medium); 
+        }
         .placeholder-page-overlay.visible { opacity: 1; visibility: visible; }
-        .placeholder-page-content { background-color: var(--bg-dark-secondary); padding: 30px 40px; border-radius: var(--border-radius-lg); width: 90%; max-width: 700px; max-height: 80vh; overflow-y: auto; box-shadow: 0 10px 50px var(--shadow-color-dark); transform: scale(0.9); transition: transform 0.3s; position: relative; }
-        .placeholder-page-overlay.visible .placeholder-page-content { transform: scale(1); }
-        .placeholder-page-content h2 { color: #fff; margin-bottom: 20px; font-size: 1.8em;}
-        .placeholder-page-content p, .placeholder-page-content ul { margin-bottom: 15px; line-height: 1.7; }
+        .placeholder-page-content { 
+            background-color: var(--bg-dark-secondary); 
+            padding: 35px 45px; /* Increased padding */
+            border-radius: var(--border-radius-xl); 
+            width: 90%; max-width: 750px; max-height: 85vh; overflow-y: auto; 
+            box-shadow: 0 15px 60px var(--shadow-color-dark); 
+            position: relative;
+            opacity: 0;
+            transform: scale(0.95) translateY(15px);
+            transition: transform var(--transition-medium) ease-out, opacity var(--transition-medium) ease-out;
+        }
+        .placeholder-page-overlay.visible .placeholder-page-content { 
+            opacity: 1;
+            transform: scale(1) translateY(0); 
+        }
+        .placeholder-page-content h2 { color: var(--text-light-primary); margin-bottom: 25px; font-size: 2em;}
+        .placeholder-page-content p, .placeholder-page-content ul { margin-bottom: 18px; line-height: 1.75; }
         .placeholder-page-content ul { padding-right: 20px; } /* RTL default */
         html[dir="ltr"] .placeholder-page-content ul { padding-right: 0; padding-left: 20px; } /* LTR specific */
-        .placeholder-page-content a { color: var(--accent-primary); text-decoration: none; }
+        .placeholder-page-content a { color: var(--accent-primary); text-decoration: none; font-weight: 500; }
         .placeholder-page-content a:hover { text-decoration: underline; color: var(--accent-tertiary); }
+        
         .placeholder-page-content .close-btn {
-            background-color: var(--accent-primary);
-            color: #fff;
-            border:none;
-            padding: 10px 20px;
-            border-radius: var(--border-radius-sm);
+            background: transparent;
+            border: none;
+            color: var(--text-light-secondary); /* For SVG */
+            font-size: 1.6em; /* SVG container size */
             cursor: pointer;
-            font-size: 1em;
-            /* margin-top: 20px; */ /* Removed to rely on absolute positioning */
-            /* display: block; */ /* Not needed for absolute */
-            /* margin-left: auto; */ /* Not needed for absolute */
-            /* margin-right: auto; */ /* Not needed for absolute */
             position: absolute;
-            top: 15px;
-            /* right: 15px; */ /* Default set by dir specific rules */
-            /* left: auto; */ /* Default set by dir specific rules */
+            top: 18px;
             z-index: 10;
-            min-width: 44px;
-            min-height: 44px;
+            padding: 8px; /* Clickable area */
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: background-color var(--transition-fast), color var(--transition-fast);
         }
-        html[dir="ltr"] .placeholder-page-content .close-btn { right: 15px; left: auto; }
-        html[dir="rtl"] .placeholder-page-content .close-btn { left: 15px; right: auto; }
-        .placeholder-page-content .close-btn:focus, .placeholder-page-content .close-btn:hover { background-color: var(--accent-secondary); outline: 2px solid var(--accent-tertiary); }
+        html[dir="ltr"] .placeholder-page-content .close-btn { right: 18px; left: auto; }
+        html[dir="rtl"] .placeholder-page-content .close-btn { left: 18px; right: auto; }
+        .placeholder-page-content .close-btn:hover { 
+            background-color: rgba(255,255,255,0.1); 
+            color: var(--text-light-primary);
+        }
+        .placeholder-page-content .close-btn:focus { 
+            outline: 2px solid var(--accent-primary); 
+            outline-offset: 2px;
+            background-color: rgba(255,255,255,0.08); 
+        }
+
+        
 
     </style>
 </head>
@@ -297,8 +392,8 @@
             </header>
             <div class="search-bar-container">
                 <input type="text" id="mainSearchInput" data-translate-key-placeholder="searchInputPlaceholder" aria-label="Search" title="Search" placeholder="...">
-                <span class="search-icon-main">🔍</span>
-                <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search" title="Clear search" tabindex="0" style="display:none;">×</button>
+                <span class="search-icon-main" id="searchIconContainer"></span>
+                <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search" title="Clear search" tabindex="0" style="display:none;"></button>
             </div>
             <div id="departmentsListContainer">
                 <!-- Departments will be rendered here -->
@@ -323,13 +418,20 @@
     </div>
 
     <script>
+        // --- SVG Icons ---
+        const SVG_ICONS = {
+            search: `<svg viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em" aria-hidden="true" focusable="false"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>`,
+            clear: `<svg viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em" aria-hidden="true" focusable="false"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>`,
+            chevronDown: `<svg viewBox="0 0 24 24" fill="currentColor" width="1em" height="1em" aria-hidden="true" focusable="false"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg>`
+        };
+
         // --- Supported Languages Configuration ---
         const supportedLanguages = {
             ar: { name: "العربية", dir: "rtl", font: "var(--font-ar)" },
             en: { name: "English", dir: "ltr", font: "var(--font-en)" }
         };
 
-        // --- Translations Store ---
+        // --- Translations Store (Content remains the same as provided initially) ---
         const translations = {
             ar: {
                 pageTitle: "بوابة التعلم الذكي",
@@ -350,7 +452,7 @@
                 examModalInstruction3: "راجع إجاباتك قبل الإنهاء (في الامتحان الفعلي).",
                 examModalStartButton: "بدء المحاكاة",
                 closeButton: "إغلاق",
-                deptToggleOpen: "−", deptToggleClose: "+",
+                // deptToggleOpen and deptToggleClose are no longer used for icon text
                 privacyPolicyTitle: "سياسة الخصوصية",
                 privacyPolicyContent: `
                     <p>نحن نهتم بخصوصيتك. توضح سياسة الخصوصية هذه كيف نجمع ونستخدم ونحمي معلوماتك الشخصية عند استخدامك لمنصتنا.</p>
@@ -441,7 +543,7 @@
                 examModalInstruction3: "Review your answers before finishing (in a real exam).",
                 examModalStartButton: "Start Simulation",
                 closeButton: "Close",
-                deptToggleOpen: "−", deptToggleClose: "+",
+                // deptToggleOpen and deptToggleClose are no longer used for icon text
                 privacyPolicyTitle: "Privacy Policy",
                 privacyPolicyContent: `
                     <p>We care about your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you use our platform.</p>
@@ -515,7 +617,7 @@
             }
         };
 
-        // --- Department Data with Localized Names ---
+        // --- Department Data (Content remains the same as provided initially) ---
         const departmentsData = [
             {
                 id: "cs", icon: "💻",
@@ -555,6 +657,8 @@
         const placeholderOverlay = document.getElementById('placeholderOverlay');
         const placeholderContentDiv = document.getElementById('placeholderContent');
         const clearSearchBtn = document.getElementById('clearSearchBtn');
+        const searchIconContainer = document.getElementById('searchIconContainer');
+
 
         // --- Language Initialization ---
         let currentLanguage = localStorage.getItem('portalLanguage');
@@ -594,16 +698,16 @@
             htmlEl.lang = currentLanguage;
             htmlEl.dir = langConfig.dir;
             bodyEl.style.fontFamily = langConfig.font;
-            bodyEl.className = currentLanguage; 
+            // bodyEl.className = currentLanguage; // Not strictly needed with dir attribute
 
             if (langConfig.dir === 'rtl') { 
-                languageSelect.style.paddingLeft = '2.5em';
-                languageSelect.style.paddingRight = '0.7em';
-                languageSelect.style.backgroundPosition = 'left 0.7em top 50%, 0 0';
+                languageSelect.style.paddingLeft = '2.8em';
+                languageSelect.style.paddingRight = '1em';
+                languageSelect.style.backgroundPosition = 'left 0.8em top 50%, 0 0';
             } else { 
-                languageSelect.style.paddingRight = '2.5em';
-                languageSelect.style.paddingLeft = '0.7em';
-                languageSelect.style.backgroundPosition = 'right 0.7em top 50%, 0 0';
+                languageSelect.style.paddingRight = '2.8em';
+                languageSelect.style.paddingLeft = '1em';
+                languageSelect.style.backgroundPosition = 'right 0.8em top 50%, 0 0';
             }
 
             document.title = trans.pageTitle;
@@ -614,16 +718,21 @@
             });
             document.querySelectorAll('[data-translate-key-text]').forEach(el => {
                 const key = el.dataset.translateKeyText;
-                if (trans[key]) el.textContent = trans[key]; // Use textContent for links
+                if (trans[key]) el.textContent = trans[key];
             });
             document.querySelectorAll('[data-translate-key-placeholder]').forEach(el => {
                 const key = el.dataset.translateKeyPlaceholder;
                 if (trans[key]) el.placeholder = trans[key];
             });
             
+            // Update ARIA labels for dynamically generated content if needed
+            clearSearchBtn.setAttribute('aria-label', trans.closeButton || 'Clear search'); // Assuming 'closeButton' can be reused or add a specific one
+            clearSearchBtn.setAttribute('title', trans.closeButton || 'Clear search');
+
+
             if (departmentsRendered) {
-                renderDepartments();
-                if (mainSearchInput.value) filterContent();
+                renderDepartments(); // This will re-render with new language
+                if (mainSearchInput.value) filterContent(); // Re-apply filter
             }
         }
         
@@ -636,7 +745,7 @@
         function updateClearSearchBtn() {
             if (mainSearchInput.value) {
                 clearSearchBtn.classList.add('visible');
-                clearSearchBtn.style.display = 'block';
+                clearSearchBtn.style.display = 'flex'; // Changed from block for flex alignment
             } else {
                 clearSearchBtn.classList.remove('visible');
                 clearSearchBtn.style.display = 'none';
@@ -646,7 +755,7 @@
         function renderDepartments(filteredData) {
             const lang = currentLanguage;
             const dataToRender = filteredData || departmentsData;
-            const langConfig = supportedLanguages[lang]; 
+            // const langConfig = supportedLanguages[lang]; // Not directly used for margin anymore due to margin-inline-end
 
             departmentsListContainer.innerHTML = '';
             if (dataToRender.length === 0) {
@@ -667,30 +776,29 @@
                 headerDiv.setAttribute('aria-controls', `subjects-${dept.id}`);
                 headerDiv.tabIndex = 0;
                 headerDiv.setAttribute('role', 'button');
-                headerDiv.setAttribute('aria-label', dept.name[lang]);
+                headerDiv.setAttribute('aria-label', `${dept.name[lang]}`); // More specific label
+                
                 headerDiv.innerHTML = `
-                    <h3><span class="dept-icon" style="margin-${langConfig.dir === 'rtl' ? 'left':'right'}:8px;">${dept.icon || '📚'}</span> ${dept.name[lang]}</h3>
-                    <span class="toggle-icon">${translations[lang].deptToggleClose}</span>
+                    <h3><span class="dept-icon">${dept.icon || '📚'}</span> ${dept.name[lang]}</h3>
+                    <span class="toggle-icon">${SVG_ICONS.chevronDown}</span>
                 `;
                 
                 const subjectListUl = document.createElement('ul');
                 subjectListUl.className = 'subject-list';
                 subjectListUl.id = `subjects-${dept.id}`;
 
-                if (dept.subjects.length > 0) {
+                if (dept.subjects && dept.subjects.length > 0) {
                     dept.subjects.forEach(subject => {
                         const subjectLi = document.createElement('li');
                         subjectLi.className = 'subject-item';
-                        Object.keys(supportedLanguages).forEach(langKey => { 
-                            if(subject.name[langKey]) {
-                                subjectLi.dataset[`subjectName${langKey.charAt(0).toUpperCase() + langKey.slice(1)}`] = `${subject.name[langKey].toLowerCase()} ${subject.code.toLowerCase()}`;
-                            }
-                        });
+                        // Storing names for multi-lang search might be complex, rely on current lang search
+                        // Or create a concatenated searchable string if needed:
+                        // subjectLi.dataset.searchableNames = Object.values(subject.name).join(' ').toLowerCase();
                         subjectLi.innerHTML = `<a href="#exam/${subject.code}" onclick="showExamSimulationPage('${subject.name[lang]}', '${subject.code}'); return false;"><span class="subject-icon">${subject.icon || '📖'}</span>${subject.name[lang]} (${subject.code})</a>`;
                         subjectListUl.appendChild(subjectLi);
                     });
                 } else {
-                     subjectListUl.innerHTML = `<li class="subject-item" style="text-align:center; color:var(--text-light-secondary);">${translations[lang].noSubjects}</li>`;
+                     subjectListUl.innerHTML = `<li class="subject-item no-subjects-item" style="text-align:center; color:var(--text-light-secondary); border-left-color:transparent; border-right-color:transparent;">${translations[lang].noSubjects}</li>`;
                 }
 
                 departmentCard.appendChild(headerDiv);
@@ -700,9 +808,7 @@
                 headerDiv.addEventListener('click', function() {
                     const isActive = this.classList.toggle('active');
                     this.setAttribute('aria-expanded', isActive.toString());
-                    const icon = this.querySelector('.toggle-icon');
-                    const currentSelectedLang = currentLanguage; 
-                    icon.textContent = isActive ? translations[currentSelectedLang].deptToggleOpen : translations[currentSelectedLang].deptToggleClose;
+                    // SVG rotation is handled by CSS based on .active class
                 });
                 headerDiv.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -712,11 +818,6 @@
                 });
             });
             departmentsRendered = true;
-            
-            document.querySelectorAll('.dept-icon').forEach(icon => {
-                icon.style.margin = ''; 
-                icon.style[`margin-${langConfig.dir === 'rtl' ? 'left' : 'right'}`] = '8px';
-            });
         }
 
         function filterContent() {
@@ -744,13 +845,15 @@
                 document.querySelectorAll('.department-card').forEach(card => {
                     const header = card.querySelector('.department-header');
                     const subjectList = card.querySelector('.subject-list');
-                    if (subjectList.children.length > 0 && !header.classList.contains('active')) {
+                    if (subjectList && subjectList.children.length > 0 ) {
+                         // Check if there are actual subjects, not just the "no subjects" message
                         let hasRealSubjects = false;
-                        for(let item of subjectList.children) { if(item.querySelector('a')) { hasRealSubjects = true; break; } }
-                        if(hasRealSubjects) { 
-                            if (!header.classList.contains('active')) {
-                                header.click();
-                            }
+                        for(let item of subjectList.children) { 
+                            if(item.querySelector('a')) { hasRealSubjects = true; break; } 
+                        }
+                        if(hasRealSubjects && !header.classList.contains('active')) { 
+                            header.classList.add('active'); // Use classList.add instead of click() to avoid multiple event triggers
+                            header.setAttribute('aria-expanded', 'true');
                         }
                     }
                 });
@@ -759,21 +862,23 @@
         
         window.showInfoPage = function(title, contentHTML, closeButtonTextKey = 'closeButton') {
             const lang = currentLanguage;
+            const closeButtonLabel = translations[lang][closeButtonTextKey] || "Close";
             placeholderContentDiv.innerHTML = `
-                <button class="close-btn" onclick="hideInfoPage()" aria-label="${translations[lang][closeButtonTextKey]}" title="${translations[lang][closeButtonTextKey]}" tabindex="0">×</button>
+                <button class="close-btn" onclick="hideInfoPage()" aria-label="${closeButtonLabel}" title="${closeButtonLabel}" tabindex="0">${SVG_ICONS.clear}</button>
                 <h2>${title}</h2>
-                ${contentHTML}
+                <div>${contentHTML}</div>
             `;
             placeholderOverlay.classList.add('visible');
             document.body.style.overflow = 'hidden';
             setTimeout(() => {
                 const closeBtn = placeholderContentDiv.querySelector('.close-btn');
                 if (closeBtn) closeBtn.focus();
-            }, 100);
+            }, 150); // Slightly longer delay for transition
         }
 
         window.hideInfoPage = function() {
             placeholderOverlay.classList.remove('visible');
+            placeholderContentDiv.innerHTML = ''; // Clear content to free resources
             document.body.style.overflow = '';
         }
 
@@ -787,17 +892,25 @@
             const examContent = `
                 <p>${trans.examModalIntro}<strong>${subjectName} (${subjectCode})</strong>.</p>
                 ${exampleParagraph}
-                <div style="margin-top: 25px; padding: 20px; border: 1px dashed var(--border-color); border-radius: var(--border-radius-sm); background-color: #1c1c32;">
+                <div style="margin-top: 25px; padding: 20px; border: 1px dashed var(--border-color); border-radius: var(--border-radius-md); background-color: #1f1f35;">
                     <h4>${trans.examModalInstructionsTitle}</h4>
                     <ul>
                         <li>${trans.examModalInstruction1}</li>
                         <li>${trans.examModalInstruction2}</li>
                         <li>${trans.examModalInstruction3}</li>
                     </ul>
-                    <button style="margin-top:20px; padding: 12px 25px; background-color: #28a745; color:white; border:none; border-radius:var(--border-radius-sm); cursor:pointer; font-size:1em;">${trans.examModalStartButton}</button>
+                    <button style="margin-top:20px; padding: 12px 25px; background-color: #28a745; color:white; border:none; border-radius:var(--border-radius-sm); cursor:pointer; font-size:1em; transition: background-color var(--transition-fast);">${trans.examModalStartButton}</button>
                 </div>
             `;
+            // Add hover effect to the start button within the exam simulation
             showInfoPage(`${trans.examModalTitlePrefix}${subjectName}`, examContent);
+            setTimeout(() => { // Ensure button exists
+                const startSimButton = placeholderContentDiv.querySelector('button[style*="background-color: #28a745"]');
+                if(startSimButton) {
+                    startSimButton.onmouseover = () => startSimButton.style.backgroundColor = '#218838';
+                    startSimButton.onmouseout = () => startSimButton.style.backgroundColor = '#28a745';
+                }
+            },0);
         }
 
         window.showStaticPage = function(pageKey) {
@@ -819,10 +932,16 @@
                 showInfoPage(pageTitle, pageContent);
             } else {
                 console.error(`Translations not found for page: ${pageKey} in language: ${lang}`);
-                showInfoPage(translations[lang].errorTitle || "Error", translations[lang].errorContent || "<p>Content not available.</p>");
+                const errorTitle = translations[lang].errorTitle || (lang === 'ar' ? "خطأ" : "Error");
+                const errorContent = translations[lang].errorContent || (lang === 'ar' ? "<p>المحتوى غير متوفر.</p>" : "<p>Content not available.</p>");
+                showInfoPage(errorTitle, errorContent);
             }
         }
-
+        
+        function initializeIcons() {
+            if (searchIconContainer) searchIconContainer.innerHTML = SVG_ICONS.search;
+            if (clearSearchBtn) clearSearchBtn.innerHTML = SVG_ICONS.clear;
+        }
 
         // --- Event Listeners ---
         languageSelect.addEventListener('change', handleLanguageChange);
@@ -830,8 +949,11 @@
         startExploringBtn.addEventListener('click', (e) => {
             e.preventDefault();
             mainContentArea.classList.add('visible');
-            setTimeout(() => { mainContentArea.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
-            if (!departmentsRendered) renderDepartments();
+            if (!departmentsRendered) renderDepartments(); // Render if not already done
+            setTimeout(() => { 
+                const targetElement = document.getElementById('mainContent'); // Ensure it targets the right element
+                if(targetElement) targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
+            }, 100);
         });
 
         mainSearchInput.addEventListener('input', function() {
@@ -845,15 +967,19 @@
             mainSearchInput.focus();
         });
         mainSearchInput.addEventListener('focus', updateClearSearchBtn);
-        mainSearchInput.addEventListener('blur', function() {
-            setTimeout(updateClearSearchBtn, 200); 
-        });
+        // No blur listener for clear button to prevent it from disappearing before click registers
         
         placeholderOverlay.addEventListener('click', (e) => {
             if (e.target === placeholderOverlay) hideInfoPage();
         });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && placeholderOverlay.classList.contains('visible')) {
+                hideInfoPage();
+            }
+        });
 
         // --- Initial Load ---
+        initializeIcons();
         populateLanguageSelector(); 
         applyTranslations();      
         updateClearSearchBtn();
