@@ -1232,12 +1232,12 @@
 
         function filterContent() {
             const searchTerm = mainSearchInput.value.toLowerCase().trim();
-            const lang = currentLanguage;
+            // const lang = currentLanguage; // No longer needed for filtering logic
 
             const displayData = departmentsData.map(dept => {
-                const deptNameMatches = dept.name[lang].toLowerCase().includes(searchTerm);
+                const deptNameMatches = (dept.name.ar.toLowerCase().includes(searchTerm) || dept.name.en.toLowerCase().includes(searchTerm));
                 const filteredSubjects = dept.subjects.filter(subject =>
-                    `${subject.name[lang].toLowerCase()} ${subject.code.toLowerCase()}`.includes(searchTerm)
+                    (subject.name.ar.toLowerCase().includes(searchTerm) || subject.name.en.toLowerCase().includes(searchTerm) || subject.code.toLowerCase().includes(searchTerm))
                 );
 
                 if (deptNameMatches || filteredSubjects.length > 0) {
