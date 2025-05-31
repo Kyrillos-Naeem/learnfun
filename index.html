@@ -5,24 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>بوابة التعلم الذكي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7696225868255842" crossorigin="anonymous"></script>
     <meta name="google-adsense-account" content="ca-pub-7696225868255842">
     <style>
         :root {
-            /* Modern Color Palette */
+            /* Enhanced Color Palette */
             --bg-dark-primary: #0A0A1A;
             --bg-dark-secondary: #14142B;
             --bg-dark-tertiary: #1E1E3F;
             --text-light-primary: #FFFFFF;
             --text-light-secondary: #B4B4D4;
-            --accent-primary: #4F46E5;
-            --accent-secondary: #6366F1;
-            --accent-tertiary: #818CF8;
+            --accent-primary: #6366F1;
+            --accent-secondary: #818CF8;
+            --accent-tertiary: #A5B4FC;
             --accent-success: #10B981;
             --accent-warning: #F59E0B;
             --accent-error: #EF4444;
-            --border-color: #2D2D5A;
-            --shadow-color-light: rgba(79, 70, 229, 0.25);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow-color-light: rgba(99, 102, 241, 0.25);
             --shadow-color-dark: rgba(0, 0, 0, 0.4);
             
             /* Typography */
@@ -106,26 +107,33 @@
             display: flex;
             align-items: center;
             gap: var(--spacing-xs);
-            background: rgba(20, 20, 43, 0.8);
+            background: rgba(20, 20, 43, 0.9);
             padding: var(--spacing-xs) var(--spacing-sm);
             border-radius: var(--border-radius-full);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
             transition: all var(--transition-medium);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
         }
 
         .language-switcher-container:hover,
         .language-switcher-container:focus-within {
-            background: rgba(20, 20, 43, 0.95);
+            background: rgba(30, 30, 63, 0.95);
             transform: translateY(-2px);
             box-shadow: 0 8px 24px var(--shadow-color-dark);
+            border-color: var(--accent-primary);
         }
 
         .language-label {
-            color: var(--text-light-secondary);
+            color: var(--accent-primary);
             font-size: 1.2rem;
             font-weight: 500;
+            transition: color var(--transition-fast);
+        }
+
+        .language-switcher-container:hover .language-label {
+            color: var(--accent-tertiary);
         }
 
         #languageSelect {
@@ -140,11 +148,23 @@
             appearance: none;
             -webkit-appearance: none;
             -moz-appearance: none;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%234F46E5"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%236366F1"><path d="M7 10l5 5 5-5z"/></svg>');
             background-repeat: no-repeat;
             background-position: right 0.5rem center;
             background-size: 1.2rem;
             padding-right: 2rem;
+            transition: all var(--transition-fast);
+        }
+
+        #languageSelect:hover,
+        #languageSelect:focus {
+            color: var(--accent-tertiary);
+        }
+
+        #languageSelect option {
+            background: var(--bg-dark-tertiary);
+            color: var(--text-light-primary);
+            padding: var(--spacing-sm);
         }
 
         /* Welcome Section */
@@ -168,19 +188,30 @@
             right: 0;
             bottom: 0;
             background: 
-                radial-gradient(circle at 20% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 80% 80%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
+                radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(129, 140, 248, 0.15) 0%, transparent 50%);
             z-index: -1;
+            animation: gradientShift 15s ease-in-out infinite alternate;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
         }
 
         .welcome-section h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 700;
             margin-bottom: var(--spacing-md);
-            background: linear-gradient(to right, var(--text-light-primary), var(--accent-tertiary));
+            background: linear-gradient(135deg, var(--text-light-primary), var(--accent-tertiary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: fadeInUp 1s ease-out;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.1);
         }
 
         .welcome-section .subtitle {
@@ -189,6 +220,7 @@
             max-width: 600px;
             margin-bottom: var(--spacing-xl);
             animation: fadeInUp 1s ease-out 0.2s backwards;
+            line-height: 1.8;
         }
 
         .cta-button {
@@ -205,6 +237,30 @@
             transition: all var(--transition-medium);
             animation: fadeInUp 1s ease-out 0.4s backwards;
             box-shadow: 0 4px 20px var(--shadow-color-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+        }
+
+        .cta-button:hover::before,
+        .cta-button:focus::before {
+            opacity: 1;
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
         }
 
         .cta-button:hover,
@@ -226,7 +282,7 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: var(--border-radius-xl);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-color);
             box-shadow: 0 20px 60px var(--shadow-color-dark);
             opacity: 0;
             transform: translateY(30px);
@@ -247,11 +303,16 @@
             font-size: 2.5rem;
             color: var(--text-light-primary);
             margin-bottom: var(--spacing-sm);
+            background: linear-gradient(135deg, var(--text-light-primary), var(--accent-tertiary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .content-header p {
             color: var(--text-light-secondary);
             font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         /* Search Bar */
@@ -275,6 +336,7 @@
             outline: none;
             border-color: var(--accent-primary);
             box-shadow: 0 0 0 4px var(--shadow-color-light);
+            background: rgba(30, 30, 63, 0.9);
         }
 
         .search-icon-main {
@@ -284,6 +346,7 @@
             transform: translateY(-50%);
             color: var(--text-light-secondary);
             pointer-events: none;
+            font-size: 1.2rem;
         }
 
         .clear-search-btn {
@@ -320,6 +383,24 @@
             overflow: hidden;
             transition: all var(--transition-medium);
             border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .department-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+        }
+
+        .department-card:hover::before,
+        .department-card:focus-within::before {
+            opacity: 1;
         }
 
         .department-card:hover,
@@ -354,10 +435,12 @@
 
         .toggle-icon {
             transition: transform var(--transition-medium);
+            color: var(--accent-primary);
         }
 
         .department-header.active .toggle-icon {
             transform: rotate(180deg);
+            color: var(--text-light-primary);
         }
 
         .subject-list {
@@ -375,11 +458,29 @@
             padding: var(--spacing-md) var(--spacing-lg);
             border-top: 1px solid var(--border-color);
             transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .subject-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--accent-primary);
+            opacity: 0;
+            transition: opacity var(--transition-fast);
+        }
+
+        .subject-item:hover::before,
+        .subject-item:focus-within::before {
+            opacity: 1;
         }
 
         .subject-item:hover,
         .subject-item:focus-within {
-            background: rgba(79, 70, 229, 0.1);
+            background: rgba(99, 102, 241, 0.1);
             padding-left: calc(var(--spacing-lg) + 4px);
         }
 
@@ -405,23 +506,56 @@
             padding: var(--spacing-xl) var(--spacing-md);
             background: var(--bg-dark-primary);
             border-top: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent);
         }
 
         .footer-links {
             margin-bottom: var(--spacing-md);
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
         }
 
         .footer-links a {
             color: var(--text-light-secondary);
             text-decoration: none;
-            margin: 0 var(--spacing-sm);
             transition: all var(--transition-fast);
+            position: relative;
+            padding: var(--spacing-xs) var(--spacing-sm);
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: all var(--transition-fast);
+            transform: translateX(-50%);
+        }
+
+        .footer-links a:hover::after,
+        .footer-links a:focus::after {
+            width: 100%;
         }
 
         .footer-links a:hover,
         .footer-links a:focus {
             color: var(--accent-primary);
-            text-decoration: underline;
         }
 
         .copyright {
@@ -478,6 +612,9 @@
             color: var(--text-light-primary);
             font-size: 2rem;
             margin-bottom: var(--spacing-lg);
+            background: linear-gradient(135deg, var(--text-light-primary), var(--accent-tertiary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .placeholder-page-content p,
@@ -495,11 +632,29 @@
             text-decoration: none;
             font-weight: 500;
             transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .placeholder-page-content a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent-primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-fast);
+        }
+
+        .placeholder-page-content a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
         }
 
         .placeholder-page-content a:hover {
             color: var(--accent-tertiary);
-            text-decoration: underline;
         }
 
         .close-btn {
@@ -519,6 +674,7 @@
         .close-btn:hover {
             color: var(--accent-error);
             background: rgba(239, 68, 68, 0.1);
+            transform: rotate(90deg);
         }
 
         /* Animations */
@@ -567,6 +723,10 @@
 
             .subject-item {
                 padding: var(--spacing-sm) var(--spacing-md);
+            }
+
+            .footer-links {
+                gap: var(--spacing-sm);
             }
         }
 
@@ -620,7 +780,9 @@
             </div>
             <h1 data-translate-key="welcomeTitle"></h1>
             <p class="subtitle" data-translate-key="welcomeSubtitle"></p>
-            <a href="#mainContent" class="cta-button" id="startExploringBtn" data-translate-key-text="exploreButton" role="button"></a>
+            <a href="#mainContent" class="cta-button" id="startExploringBtn" data-translate-key-text="exploreButton" role="button">
+                <span data-translate-key-text="exploreButton"></span>
+            </a>
         </section>
 
         <section class="main-content-area" id="mainContent" aria-labelledby="mainContentHeader">
@@ -630,8 +792,12 @@
             </header>
             <div class="search-bar-container">
                 <input type="text" id="mainSearchInput" data-translate-key-placeholder="searchInputPlaceholder" aria-label="Search" title="Search" placeholder="...">
-                <span class="search-icon-main" id="searchIconContainer" aria-hidden="true"></span>
-                <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search input" title="Clear search input" tabindex="0" style="display:none;"></button>
+                <span class="search-icon-main" id="searchIconContainer" aria-hidden="true">
+                    <i class="fas fa-search"></i>
+                </span>
+                <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear search input" title="Clear search input" tabindex="0" style="display:none;">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
             <div id="departmentsListContainer">
                 <!-- Departments will be rendered here -->
@@ -640,9 +806,9 @@
 
         <footer class="app-footer" role="contentinfo">
             <div class="footer-links">
-                <a href="#" onclick="showStaticPage('privacyPolicy'); return false;" data-translate-key-text="linkPrivacyPolicy"></a> |
-                <a href="#" onclick="showStaticPage('aboutUs'); return false;" data-translate-key-text="linkAboutUs"></a> |
-                <a href="#" onclick="showStaticPage('contactUs'); return false;" data-translate-key-text="linkContactUs"></a> |
+                <a href="#" onclick="showStaticPage('privacyPolicy'); return false;" data-translate-key-text="linkPrivacyPolicy"></a>
+                <a href="#" onclick="showStaticPage('aboutUs'); return false;" data-translate-key-text="linkAboutUs"></a>
+                <a href="#" onclick="showStaticPage('contactUs'); return false;" data-translate-key-text="linkContactUs"></a>
                 <a href="#" onclick="showStaticPage('termsConditions'); return false;" data-translate-key-text="linkTermsConditions"></a>
             </div>
             <p class="copyright" data-translate-key="copyright"></p>
@@ -653,7 +819,9 @@
         <div class="placeholder-page-content" id="placeholderContent">
             <h2 id="placeholderTitle" class="visually-hidden"></h2>
             <!-- Content will be injected here -->
-            <button class="close-btn" onclick="hideInfoPage()" aria-label="Close dialog" title="Close dialog" tabindex="0"></button>
+            <button class="close-btn" onclick="hideInfoPage()" aria-label="Close dialog" title="Close dialog" tabindex="0">
+                <i class="fas fa-times"></i>
+            </button>
         </div>
     </div>
 
