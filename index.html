@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة التعلم الذكي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        /* --- Global Styles & CSS Variables --- */
+        :root {
+            --bg-dark-primary: #10101A; /* Deep, rich dark blue/purple */
+            --bg-dark-secondary: #1A1A2E; /* Slightly lighter for cards */
+            --bg-dark-tertiary: #24243E; /* For accents, hover states */
+            --text-light-primary: #F0F0F8; /* Soft white for primary text */
+            --text-light-secondary: #A0A0C0; /* Light grayish blue for secondary text */
+            --accent-primary: #00A8E8; /* Vibrant cyan/blue for CTAs and highlights */
+            --accent-secondary: #007EA7; /* Darker cyan for hover */
+            --accent-tertiary: #FFD700; /* Gold for special highlights (optional) */
+            --border-color: #30304A;
+            --shadow-color-light: rgba(0, 168, 232, 0.2);
+            --shadow-color-dark: rgba(0, 0, 0, 0.4);
+            --font-primary: 'Cairo', sans-serif;
+            --font-secondary: 'Roboto', sans-serif;
+            --border-radius-sm: 6px;
+            --border-radius-md: 10px;
+            --border-radius-lg: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, var(--bg-dark-primary) 0%, #181828 100%);
+            color: var(--text-light-primary);
+            line-height: 1.8;
+            font-size: 16px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- App Shell --- */
+        .app-shell {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* --- Welcome Section --- */
+        .welcome-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 60px 20px;
+            min-height: 60vh; /* Take up significant viewport height */
+            background: radial-gradient(circle, rgba(26,26,46,0.8) 0%, rgba(16,16,26,0.9) 70%), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.05"><path d="M10 10 Q20 0 30 10 T50 10 T70 10 T90 10 M10 30 Q20 20 30 30 T50 30 T70 30 T90 30 M10 50 Q20 40 30 50 T50 50 T70 50 T90 50 M10 70 Q20 60 30 70 T50 70 T70 70 T90 70 M10 90 Q20 80 30 90 T50 90 T70 90 T90 90" stroke="%23F0F0F8" fill="none" stroke-width="1"/></svg>');
+            background-size: cover, 200px;
+            animation: fadeInWelcome 1s ease-out;
+        }
+        
+        @keyframes fadeInWelcome {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-section h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 10px var(--shadow-color-dark);
+        }
+
+        .welcome-section .subtitle {
+            font-size: 1.4em;
+            color: var(--text-light-secondary);
+            margin-bottom: 35px;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            background-color: var(--accent-primary);
+            color: #ffffff;
+            padding: 15px 35px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 168, 232, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: var(--accent-secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 168, 232, 0.4);
+        }
+
+        /* --- Main Content Area (Courses, Search, etc.) --- */
+        .main-content-area {
+            width: 90%;
+            max-width: 950px;
+            margin: 0 auto 40px auto; /* Initially no top margin, will be added by JS */
+            padding: 30px 35px;
+            background-color: var(--bg-dark-secondary);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 10px 40px var(--shadow-color-dark);
+            opacity: 0; /* Initially hidden */
+            transform: translateY(30px); /* Initial position for animation */
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out, margin-top 0.6s ease-out;
+            /* display: none;  Using opacity and transform for animation */
+        }
+
+        .main-content-area.visible {
+            opacity: 1;
+            transform: translateY(0);
+            margin-top: -80px; /* Pulls it up slightly over the welcome section for a layered look */
+            /* display: block; */
+        }
+        
+        .content-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .content-header h2 {
+            font-size: 2.2em;
+            color: var(--text-light-primary);
+            margin-bottom: 10px;
+        }
+        
+        .content-header p {
+            color: var(--text-light-secondary);
+            font-size: 1.1em;
+        }
+
+        .search-bar-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        #mainSearchInput {
+            width: 100%;
+            padding: 16px 25px 16px 60px; /* RTL padding */
+            border: 1px solid var(--border-color);
+            border-radius: var(--border-radius-md);
+            background-color: var(--bg-dark-tertiary);
+            color: var(--text-light-primary);
+            font-size: 1.1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #mainSearchInput:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px var(--shadow-color-light);
+        }
+        #mainSearchInput::placeholder { color: var(--text-light-secondary); opacity: 0.7; }
+
+        .search-icon-main {
+            position: absolute;
+            top: 50%;
+            right: 20px; /* RTL */
+            transform: translateY(-50%);
+            color: var(--text-light-secondary);
+            font-size: 1.5em;
+            pointer-events: none;
+        }
+
+        /* Department Cards */
+        .department-card {
+            margin-bottom: 25px;
+            border-radius: var(--border-radius-md);
+            background-color: var(--bg-dark-tertiary);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            overflow: hidden;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .department-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        .department-header {
+            background-image: linear-gradient(to right, var(--bg-dark-secondary), #202038);
+            color: #ffffff;
+            padding: 20px 25px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .department-header.active {
+            background-image: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
+        }
+        .department-header h3 { margin: 0; font-size: 1.6em; font-weight: 600; }
+        .toggle-icon {
+            font-size: 1.4em;
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Elastic transition */
+            color: var(--accent-primary);
+        }
+        .department-header.active .toggle-icon { transform: rotate(135deg); color: #fff; }
+
+        .subject-list {
+            list-style: none;
+            padding: 0; margin: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            background-color: var(--bg-dark-tertiary);
+        }
+        .department-header.active + .subject-list { max-height: 800px; padding: 10px 0; }
+
+        .subject-item {
+            padding: 15px 30px;
+            border-top: 1px solid #2a2a42;
+            transition: background-color 0.2s ease, padding-right 0.2s ease;
+        }
+        .subject-item:first-child { border-top: none; }
+        .subject-item:hover { background-color: #2f2f4f; padding-right: 35px; }
+        .subject-item a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            display: flex; /* For icon alignment */
+            align-items: center;
+            font-size: 1.1em;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .subject-item a .subject-icon { margin-left: 10px; font-size: 1.2em; } /* RTL: margin-left */
+        .subject-item a:hover { color: var(--accent-tertiary); }
+        .subject-item.hidden { display: none; }
+        .no-results-message { text-align:center; padding:25px; color:var(--text-light-secondary); font-size:1.1em; }
+
+        /* --- Footer --- */
+        .app-footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: auto;
+            background-color: var(--bg-dark-primary);
+            border-top: 1px solid var(--border-color);
+        }
+        .app-footer nav a {
+            color: var(--text-light-secondary);
+            margin: 0 20px;
+            text-decoration: none;
+            font-size: 1em;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
+        }
+        .app-footer nav a:hover { color: var(--accent-primary); text-decoration: underline; }
+        .app-footer .copyright { margin-top: 20px; font-size: 0.9em; color: #707090; }
+
+        /* Placeholder Page (Modal-like for footer links/exam) */
+        .placeholder-page-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(16, 16, 26, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+        .placeholder-page-overlay.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        .placeholder-page-content {
+            background-color: var(--bg-dark-secondary);
+            padding: 30px 40px;
+            border-radius: var(--border-radius-lg);
+            width: 90%;
+            max-width: 700px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 50px var(--shadow-color-dark);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+        .placeholder-page-overlay.visible .placeholder-page-content {
+            transform: scale(1);
+        }
+        .placeholder-page-content h2 { color: #fff; margin-bottom: 20px; font-size: 1.8em;}
+        .placeholder-page-content p, .placeholder-page-content ul { margin-bottom: 15px; line-height: 1.7; }
+        .placeholder-page-content ul { padding-right: 20px; }
+        .placeholder-page-content .close-btn {
+            background-color: var(--accent-primary); color: #fff; border:none; padding: 10px 20px;
+            border-radius: var(--border-radius-sm); cursor: pointer; font-size: 1em; margin-top: 20px;
+            display: block; margin-left: auto; margin-right: auto; /* Center */
+        }
+        .placeholder-page-content .close-btn:hover { background-color: var(--accent-secondary); }
+
+    </style>
+</head>
+<body>
+    <div class="app-shell">
+        <section class="welcome-section" id="welcome">
+            <h1>بوابة التعلم الذكي</h1>
+            <p class="subtitle">مرحباً بك في منصتك المتكاملة لاستكشاف المواد الدراسية وخوض تجارب تعليمية فريدة. ابدأ رحلتك المعرفية الآن!</p>
+            <a href="#mainContent" class="cta-button" id="startExploringBtn">ابدأ الاستكشاف الآن</a>
+        </section>
+
+        <section class="main-content-area" id="mainContent">
+            <header class="content-header">
+                <h2>الأقسام الدراسية</h2>
+                <p>تصفح الأقسام المختلفة للعثور على المواد التي تهتم بها.</p>
+            </header>
+            <div class="search-bar-container">
+                <input type="text" id="mainSearchInput" placeholder="ابحث عن مادة أو قسم...">
+                <span class="search-icon-main">🔍</span>
+            </div>
+            <div id="departmentsListContainer">
+                <!-- Departments will be rendered here -->
+            </div>
+        </section>
+
+        <footer class="app-footer">
+            <nav>
+                <a href="#privacy" onclick="showInfoPage('سياسة الخصوصية', privacyPolicyContent); return false;">سياسة الخصوصية</a>
+                <a href="#about" onclick="showInfoPage('من نحن', aboutUsContent); return false;">من نحن</a>
+                <a href="#contact" onclick="showInfoPage('اتصل بنا', contactUsContent); return false;">اتصل بنا</a>
+                <a href="#terms" onclick="showInfoPage('شروط الاستخدام', termsConditionsContent); return false;">شروط الاستخدام</a>
+            </nav>
+            <p class="copyright">&copy; 2024 بوابة التعلم الذكي. جميع الحقوق محفوظة.</p>
+        </footer>
+    </div>
+
+    <!-- Placeholder Page Structure (Modal) -->
+    <div class="placeholder-page-overlay" id="placeholderOverlay">
+        <div class="placeholder-page-content" id="placeholderContent">
+            <!-- Content will be injected here -->
+        </div>
+    </div>
+
+    <script>
+        // --- Data ---
+        const departmentsData = [
+            {
+                id: "cs", name: "علوم الحاسوب والذكاء الاصطناعي", icon: "💻",
+                subjects: [
+                    { name: "مقدمة إلى بايثون والبرمجة الشيئية", examLink: "exam_page.html?subject=python_oop", code: "CS101", icon: "🐍" },
+                    { name: "هياكل البيانات المتقدمة والخوارزميات", examLink: "exam_page.html?subject=adv_data_structures", code: "CS201", icon: "📊" },
+                    { name: "تعلم الآلة وتطبيقاته", examLink: "exam_page.html?subject=machine_learning", code: "AI305", icon: "🤖" },
+                    { name: "أمن الشبكات والبيانات", examLink: "exam_page.html?subject=network_security", code: "CS310", icon: "🛡️" }
+                ]
+            },
+            {
+                id: "eng", name: "الهندسة الميكانيكية والطاقة", icon: "⚙️",
+                subjects: [
+                    { name: "ديناميكا الموائع والحراريات", examLink: "exam_page.html?subject=fluid_thermo", code: "ME202", icon: "🔥" },
+                    { name: "تصميم الآلات باستخدام CAD/CAM", examLink: "exam_page.html?subject=cad_cam_design", code: "ME305", icon: "🔩" },
+                    { name: "أنظمة الطاقة المتجددة", examLink: "exam_page.html?subject=renewable_energy", code: "ME410", icon: "☀️" }
+                ]
+            },
+            {
+                id: "business", name: "إدارة الأعمال والتسويق الرقمي", icon: "📈",
+                subjects: [
+                    { name: "استراتيجيات التسويق الرقمي الحديث", examLink: "exam_page.html?subject=digital_marketing", code: "BUS210", icon: "🌐" },
+                    { name: "تحليل البيانات لاتخاذ القرارات الإدارية", examLink: "exam_page.html?subject=data_analysis_biz", code: "BUS330", icon: "💡" },
+                    { name: "ريادة الأعمال وإدارة المشاريع الناشئة", examLink: "exam_page.html?subject=entrepreneurship_startup", code: "BUS405", icon: "🚀" }
+                ]
+            }
+        ];
+
+        // Placeholder content for footer links
+        const privacyPolicyContent = `<p>نحن نهتم بخصوصيتك. توضح هذه السياسة كيفية جمعنا واستخدامنا وحمايتنا لمعلوماتك الشخصية.</p><ul><li>المعلومات التي نجمعها: ...</li><li>كيف نستخدم معلوماتك: ...</li><li>أمان البيانات: ...</li></ul>`;
+        const aboutUsContent = `<p>بوابة التعلم الذكي هي منصة تهدف إلى توفير تجربة تعليمية مبتكرة وتفاعلية للطلاب في مختلف المجالات. نسعى لتمكين المتعلمين بالأدوات والمعرفة اللازمة للنجاح.</p>`;
+        const contactUsContent = `<p>لأية استفسارات أو اقتراحات، يمكنكم التواصل معنا عبر:</p><ul><li>البريد الإلكتروني: contact@smartlearnportal.com</li><li>الهاتف: +123-456-7890</li></ul>`;
+        const termsConditionsContent = `<p>باستخدامك لمنصة بوابة التعلم الذكي، فإنك توافق على الشروط والأحكام التالية:</p><ul><li>الاستخدام المقبول للمنصة.</li><li>حقوق الملكية الفكرية.</li><li>إخلاء المسؤولية.</li></ul>`;
+
+        // --- DOM Elements ---
+        const startExploringBtn = document.getElementById('startExploringBtn');
+        const mainContentArea = document.getElementById('mainContent');
+        const departmentsListContainer = document.getElementById('departmentsListContainer');
+        const mainSearchInput = document.getElementById('mainSearchInput');
+        const placeholderOverlay = document.getElementById('placeholderOverlay');
+        const placeholderContentDiv = document.getElementById('placeholderContent');
+
+        // --- Event Listeners ---
+        startExploringBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            mainContentArea.classList.add('visible');
+            // Scroll to the main content area after it becomes visible
+            setTimeout(() => { // Timeout to allow visibility transition to start
+                 mainContentArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100); // Small delay
+            renderDepartments(); // Render departments when user clicks to explore
+        });
+
+        mainSearchInput.addEventListener('input', filterContent);
+        
+        placeholderOverlay.addEventListener('click', (e) => {
+            if (e.target === placeholderOverlay) { // Close only if overlay itself is clicked
+                hideInfoPage();
+            }
+        });
+
+
+        // --- Functions ---
+        function renderDepartments(filteredData = departmentsData) {
+            departmentsListContainer.innerHTML = '';
+            if (filteredData.length === 0) {
+                departmentsListContainer.innerHTML = '<p class="no-results-message">عذراً، لم يتم العثور على أقسام أو مواد تطابق بحثك.</p>';
+                return;
+            }
+
+            filteredData.forEach(dept => {
+                const departmentCard = document.createElement('div');
+                departmentCard.className = 'department-card';
+
+                const headerDiv = document.createElement('div');
+                headerDiv.className = 'department-header';
+                headerDiv.setAttribute('aria-expanded', 'false');
+                headerDiv.setAttribute('aria-controls', `subjects-${dept.id}`);
+                headerDiv.innerHTML = `
+                    <h3><span class="dept-icon" style="margin-left:8px;">${dept.icon || '📚'}</span> ${dept.name}</h3>
+                    <span class="toggle-icon">+</span>
+                `;
+                
+                const subjectListUl = document.createElement('ul');
+                subjectListUl.className = 'subject-list';
+                subjectListUl.id = `subjects-${dept.id}`;
+
+                if (dept.subjects.length > 0) {
+                    dept.subjects.forEach(subject => {
+                        const subjectLi = document.createElement('li');
+                        subjectLi.className = 'subject-item';
+                        subjectLi.innerHTML = `<a href="#exam/${subject.code}" onclick="showExamSimulationPage('${subject.name}', '${subject.code}'); return false;"><span class="subject-icon">${subject.icon || '📖'}</span>${subject.name} (${subject.code})</a>`;
+                        subjectLi.dataset.subjectName = `${subject.name.toLowerCase()} ${subject.code.toLowerCase()}`;
+                        subjectListUl.appendChild(subjectLi);
+                    });
+                } else {
+                     subjectListUl.innerHTML = '<li class="subject-item" style="text-align:center; color:var(--text-light-secondary);">لا توجد مواد متاحة حالياً.</li>';
+                }
+
+                departmentCard.appendChild(headerDiv);
+                departmentCard.appendChild(subjectListUl);
+                departmentsListContainer.appendChild(departmentCard);
+
+                headerDiv.addEventListener('click', function() {
+                    const isActive = this.classList.toggle('active');
+                    this.setAttribute('aria-expanded', isActive.toString());
+                    const icon = this.querySelector('.toggle-icon');
+                    icon.textContent = isActive ? '−' : '+';
+                });
+            });
+        }
+
+        function filterContent() {
+            const searchTerm = mainSearchInput.value.toLowerCase().trim();
+            
+            const filteredDepartments = departmentsData.map(dept => {
+                const matchingSubjects = dept.subjects.filter(subject => 
+                    `${subject.name.toLowerCase()} ${subject.code.toLowerCase()}`.includes(searchTerm)
+                );
+                // If department name matches or it has matching subjects
+                if (dept.name.toLowerCase().includes(searchTerm) || matchingSubjects.length > 0) {
+                    return { ...dept, subjects: matchingSubjects.length > 0 ? matchingSubjects : (dept.name.toLowerCase().includes(searchTerm) ? dept.subjects : []) }; // Show all subjects if dept name matches but no subject name matches
+                }
+                return null;
+            }).filter(dept => dept !== null); // Remove null entries (departments that don't match at all)
+            
+            // A bit more nuanced filtering for display:
+            // If searching, and a subject matches, show that subject.
+            // If searching, and a department name matches, show all subjects in that department.
+            const displayData = departmentsData.map(dept => {
+                const deptNameMatches = dept.name.toLowerCase().includes(searchTerm);
+                const filteredSubjects = dept.subjects.filter(subject =>
+                    `${subject.name.toLowerCase()} ${subject.code.toLowerCase()}`.includes(searchTerm)
+                );
+
+                if (deptNameMatches || filteredSubjects.length > 0) {
+                    // If department name matches, show all its subjects. If only subjects match, show only those.
+                    // If both match, prioritize filtered subjects.
+                    return {
+                        ...dept,
+                        subjects: (filteredSubjects.length > 0) ? filteredSubjects : (deptNameMatches ? dept.subjects : [])
+                    };
+                }
+                return null;
+            }).filter(dept => dept !== null);
+
+
+            renderDepartments(displayData);
+
+            // Auto-expand department if search term is present and it contains results
+            if (searchTerm) {
+                document.querySelectorAll('.department-card').forEach(card => {
+                    const header = card.querySelector('.department-header');
+                    const subjectList = card.querySelector('.subject-list');
+                    if (subjectList.children.length > 0 && !header.classList.contains('active')) {
+                         // Check if any actual items (not "no subjects" message)
+                        let hasRealSubjects = false;
+                        for(let item of subjectList.children) {
+                            if(item.querySelector('a')) { // Real subject item has an anchor
+                                hasRealSubjects = true;
+                                break;
+                            }
+                        }
+                        if(hasRealSubjects) header.click();
+                    }
+                });
+            }
+        }
+        
+        window.showInfoPage = function(title, contentHTML) {
+            placeholderContentDiv.innerHTML = `
+                <h2>${title}</h2>
+                ${contentHTML}
+                <button class="close-btn" onclick="hideInfoPage()">إغلاق</button>
+            `;
+            placeholderOverlay.classList.add('visible');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        }
+
+        window.hideInfoPage = function() {
+            placeholderOverlay.classList.remove('visible');
+            document.body.style.overflow = ''; // Restore background scroll
+        }
+
+        window.showExamSimulationPage = function(subjectName, subjectCode) {
+            const examContent = `
+                <p>أنت على وشك بدء محاكاة امتحان لمادة: <strong>${subjectName} (${subjectCode})</strong>.</p>
+                <p>هذه واجهة توضيحية. في التطبيق الفعلي، سيتم عرض أسئلة الامتحان هنا.</p>
+                <div style="margin-top: 25px; padding: 20px; border: 1px dashed var(--border-color); border-radius: var(--border-radius-sm); background-color: #1c1c32;">
+                    <h4>تعليمات هامة:</h4>
+                    <ul>
+                        <li>تأكد من فهمك لمادة الامتحان جيداً.</li>
+                        <li>خصص وقتاً كافياً دون مقاطعات.</li>
+                        <li>راجع إجاباتك قبل الإنهاء (في الامتحان الفعلي).</li>
+                    </ul>
+                    <button style="margin-top:20px; padding: 12px 25px; background-color: #28a745; color:white; border:none; border-radius:var(--border-radius-sm); cursor:pointer; font-size:1em;">بدء المحاكاة</button>
+                </div>
+            `;
+            showInfoPage(`محاكاة امتحان: ${subjectName}`, examContent);
+        }
+
+        // Initial call if you want departments to be visible without clicking "Start Exploring"
+        // renderDepartments(); 
+        // For "welcome page" style, departments are rendered on button click.
+
+    </script>
+</body>
+</html>
