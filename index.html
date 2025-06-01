@@ -786,6 +786,41 @@
             white-space: nowrap;
             border: 0;
         }
+
+        .made-by {
+            margin-top: var(--spacing-sm);
+            color: var(--text-light-secondary);
+            font-size: 0.9rem;
+        }
+
+        .made-by a {
+            color: var(--accent-primary);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            position: relative;
+        }
+
+        .made-by a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--accent-primary);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform var(--transition-fast);
+        }
+
+        .made-by a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .made-by a:hover {
+            color: var(--accent-tertiary);
+        }
     </style>
     <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
@@ -837,6 +872,7 @@
                 <a href="#" onclick="showStaticPage('termsConditions'); return false;" data-translate-key-text="linkTermsConditions"></a>
             </div>
             <p class="copyright" data-translate-key="copyright"></p>
+            <p class="made-by">Made with ❤️ by <a href="https://github.com/BeboNaiem" target="_blank" rel="noopener noreferrer">Bebo Naiem</a></p>
         </footer>
     </div>
 
@@ -874,7 +910,7 @@
                 sectionsTitle: "الأقسام الدراسية",
                 sectionsSubtitle: "تصفح الأقسام المختلفة للعثور على المواد التي تهتم بها.",
                 searchInputPlaceholder: "ابحث عن مادة أو قسم...",
-                copyright: "© 2024 بوابة التعلم الذكي. جميع الحقوق محفوظة.",
+                copyright: "© 2025 بوابة التعلم الذكي. جميع الحقوق محفوظة.",
                 noResults: "عذراً، لم يتم العثور على أقسام أو مواد تطابق بحثك.",
                 noSubjects: "لا توجد مواد متاحة حالياً.",
                 examModalTitlePrefix: "محاكاة امتحان: ",
@@ -965,7 +1001,7 @@
                 sectionsTitle: "Academic Departments",
                 sectionsSubtitle: "Browse different departments to find the subjects you are interested in.",
                 searchInputPlaceholder: "Search for a subject or department...",
-                copyright: "© 2024 Smart Learning Portal. All rights reserved.",
+                copyright: "© 2025 Smart Learning Portal. All rights reserved.",
                 noResults: "Sorry, no departments or subjects found matching your search.",
                 noSubjects: "No subjects currently available.",
                 examModalTitlePrefix: "Exam Simulation: ",
