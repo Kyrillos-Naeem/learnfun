@@ -83,9 +83,16 @@
             
             /* Z-index Layers */
             --z-base: 1;
-            --z-above: 10;
-            --z-modal: 100;
-            --z-overlay: 1000;
+            --z-above: 10; 
+            --z-header: 100;
+            --z-lang-switcher: 105;
+            --z-mobile-nav-overlay: 108;
+            --z-mobile-nav: 110;
+            --z-modal: 500; 
+            --z-overlay: 1000; 
+
+            /* Header Height */
+            --header-height: 70px;
         }
 
         /* Reset & Base Styles */
@@ -111,7 +118,10 @@
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Modern Scrollbar */
+        .app-shell {
+            padding-top: var(--header-height);
+        }
+
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -130,12 +140,125 @@
             background: var(--accent-secondary);
         }
 
-        /* Language Switcher */
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(10, 10, 26, 0.85); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: var(--z-header); 
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color var(--transition-medium);
+        }
+
+        .app-header:hover {
+            background: rgba(10, 10, 26, 0.95);
+        }
+
+        .header-content-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px; 
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+            height: var(--header-height);
+        }
+
+        .header-logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-light-primary);
+        }
+
+        .header-logo {
+            height: 40px; 
+            width: auto;
+            margin-inline-end: var(--spacing-sm);
+            transition: transform var(--transition-fast);
+        }
+
+        .header-logo-link:hover .header-logo {
+            transform: scale(1.1);
+        }
+
+        .header-site-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: var(--font-en);
+            letter-spacing: 0.5px;
+            color: var(--text-light-primary);
+        }
+
+        .main-navigation {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-list {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: var(--spacing-sm); 
+        }
+
+        .nav-link {
+            color: var(--text-light-secondary);
+            text-decoration: none;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            font-weight: 500;
+            border-radius: var(--border-radius-sm);
+            transition: color var(--transition-fast), background-color var(--transition-fast);
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus {
+            color: var(--text-light-primary);
+            background-color: rgba(99, 102, 241, 0.2); 
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-primary);
+            transition: width var(--transition-medium);
+        }
+
+        .nav-link:hover::after,
+        .nav-link:focus::after {
+            width: 70%; 
+        }
+
+        .nav-toggle-button {
+            display: none; 
+            background: transparent;
+            border: none;
+            color: var(--text-light-primary);
+            font-size: 1.8rem; 
+            cursor: pointer;
+            padding: var(--spacing-xs);
+            z-index: var(--z-mobile-nav);
+        }
+        .nav-toggle-button .fa-times {
+            display: none;
+        }
+
         .language-switcher-container {
             position: fixed;
             top: var(--spacing-md);
             right: var(--spacing-md);
-            z-index: var(--z-above);
+            z-index: var(--z-lang-switcher);
             display: flex;
             align-items: center;
             gap: var(--spacing-xs);
@@ -182,10 +305,15 @@
             -moz-appearance: none;
             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%236366F1"><path d="M7 10l5 5 5-5z"/></svg>');
             background-repeat: no-repeat;
-            background-position: right 0.5rem center;
+            background-position: right 0.5rem center; 
             background-size: 1.2rem;
-            padding-right: 2rem;
+            padding-right: 2rem; 
             transition: all var(--transition-fast);
+        }
+        html[dir="rtl"] #languageSelect {
+            background-position: left 0.5rem center;
+            padding-left: 2rem;
+            padding-right: var(--spacing-sm);
         }
 
         #languageSelect:hover,
@@ -199,10 +327,9 @@
             padding: var(--spacing-sm);
         }
 
-        /* Welcome Section */
         .welcome-section {
             position: relative;
-            min-height: 100vh;
+            min-height: calc(100vh - var(--header-height));
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -303,7 +430,6 @@
             outline-offset: 4px;
         }
 
-        /* Main Content Area */
         .main-content-area {
             position: relative;
             width: 90%;
@@ -316,14 +442,6 @@
             border-radius: var(--border-radius-xl);
             border: 1px solid var(--border-color);
             box-shadow: 0 20px 60px var(--shadow-color-dark);
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all var(--transition-smooth);
-        }
-
-        .main-content-area.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         .content-header {
@@ -347,7 +465,6 @@
             margin: 0 auto;
         }
 
-        /* Search Bar */
         .search-bar-container {
             position: relative;
             margin-bottom: var(--spacing-xl);
@@ -374,17 +491,21 @@
         .search-icon-main {
             position: absolute;
             top: 50%;
-            right: var(--spacing-md);
+            right: var(--spacing-md); 
             transform: translateY(-50%);
             color: var(--text-light-secondary);
             pointer-events: none;
             font-size: 1.2rem;
         }
+        html[dir="rtl"] .search-icon-main {
+            right: auto;
+            left: var(--spacing-md);
+        }
 
         .clear-search-btn {
             position: absolute;
             top: 50%;
-            left: var(--spacing-md);
+            left: var(--spacing-md); 
             transform: translateY(-50%);
             background: none;
             border: none;
@@ -394,6 +515,10 @@
             border-radius: 50%;
             display: none;
             transition: all var(--transition-fast);
+        }
+        html[dir="rtl"] .clear-search-btn {
+            left: auto;
+            right: var(--spacing-md);
         }
 
         .clear-search-btn.visible {
@@ -407,7 +532,6 @@
             background: rgba(239, 68, 68, 0.1);
         }
 
-        /* Department Cards */
         .department-card {
             background: var(--bg-dark-tertiary);
             border-radius: var(--border-radius-lg);
@@ -483,7 +607,7 @@
         }
 
         .department-header.active + .subject-list {
-            max-height: 1000px;
+            max-height: 1000px; 
         }
 
         .subject-item {
@@ -497,12 +621,16 @@
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
+            left: 0; 
             width: 3px;
             height: 100%;
             background: var(--accent-primary);
             opacity: 0;
             transition: opacity var(--transition-fast);
+        }
+        html[dir="rtl"] .subject-item::before {
+            left: auto;
+            right: 0;
         }
 
         .subject-item:hover::before,
@@ -513,7 +641,12 @@
         .subject-item:hover,
         .subject-item:focus-within {
             background: rgba(99, 102, 241, 0.1);
-            padding-left: calc(var(--spacing-lg) + 4px);
+            padding-left: calc(var(--spacing-lg) + 4px); 
+        }
+        html[dir="rtl"] .subject-item:hover,
+        html[dir="rtl"] .subject-item:focus-within {
+            padding-left: var(--spacing-lg);
+            padding-right: calc(var(--spacing-lg) + 4px);
         }
 
         .subject-item a {
@@ -532,7 +665,6 @@
             color: var(--accent-tertiary);
         }
 
-        /* Footer */
         .app-footer {
             text-align: center;
             padding: var(--spacing-xl) var(--spacing-md);
@@ -595,7 +727,6 @@
             font-size: 0.9rem;
         }
 
-        /* Modal Overlay */
         .placeholder-page-overlay {
             position: fixed;
             top: 0;
@@ -656,7 +787,11 @@
         }
 
         .placeholder-page-content ul {
-            padding-right: var(--spacing-lg);
+            padding-right: var(--spacing-lg); 
+        }
+        html[dir="ltr"] .placeholder-page-content ul {
+            padding-right: 0;
+            padding-left: var(--spacing-lg);
         }
 
         .placeholder-page-content a {
@@ -676,13 +811,19 @@
             height: 1px;
             background: var(--accent-primary);
             transform: scaleX(0);
-            transform-origin: right;
+            transform-origin: right; 
             transition: transform var(--transition-fast);
+        }
+        html[dir="rtl"] .placeholder-page-content a::after {
+            transform-origin: left;
         }
 
         .placeholder-page-content a:hover::after {
             transform: scaleX(1);
-            transform-origin: left;
+            transform-origin: left; 
+        }
+        html[dir="rtl"] .placeholder-page-content a:hover::after {
+            transform-origin: right;
         }
 
         .placeholder-page-content a:hover {
@@ -692,7 +833,7 @@
         .close-btn {
             position: absolute;
             top: var(--spacing-md);
-            right: var(--spacing-md);
+            right: var(--spacing-md); 
             background: none;
             border: none;
             color: var(--text-light-secondary);
@@ -702,6 +843,10 @@
             border-radius: 50%;
             transition: all var(--transition-fast);
         }
+        html[dir="rtl"] .close-btn {
+            right: auto;
+            left: var(--spacing-md);
+        }
 
         .close-btn:hover {
             color: var(--accent-error);
@@ -709,7 +854,6 @@
             transform: rotate(90deg);
         }
 
-        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -721,14 +865,80 @@
             }
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
+        @media (max-width: 768px) { 
             :root {
                 --spacing-xl: 2rem;
                 --spacing-lg: 1.5rem;
                 --spacing-md: 1rem;
                 --spacing-sm: 0.75rem;
                 --spacing-xs: 0.5rem;
+            }
+             .header-site-name {
+                font-size: 1.3rem;
+            }
+
+            .nav-list {
+                flex-direction: column;
+                position: fixed; 
+                top: var(--header-height); 
+                left: -100%; 
+                width: min(75vw, 280px); 
+                height: calc(100vh - var(--header-height)); 
+                background: var(--bg-dark-secondary); 
+                padding: var(--spacing-lg) var(--spacing-md);
+                border-right: 1px solid var(--border-color); 
+                box-shadow: 5px 0 15px rgba(0,0,0,0.2); 
+                transition: left var(--transition-medium) ease-in-out, right var(--transition-medium) ease-in-out;
+                overflow-y: auto; 
+                z-index: var(--z-mobile-nav);
+            }
+            html[dir="ltr"] .nav-list { 
+                right: -100%;
+                left: auto;
+                border-left: 1px solid var(--border-color);
+                border-right: none;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.2);
+            }
+
+            .nav-list.active {
+                left: 0; 
+            }
+            html[dir="ltr"] .nav-list.active {
+                right: 0;
+                left: auto;
+            }
+
+            .nav-link {
+                display: block; 
+                padding: var(--spacing-md) var(--spacing-sm);
+                font-size: 1.1rem;
+            }
+            .nav-link:hover, .nav-link:focus {
+                background-color: rgba(99, 102, 241, 0.3);
+            }
+            .nav-link::after {
+                display: none; 
+            }
+
+            .nav-toggle-button {
+                display: block;
+            }
+
+            .nav-mobile-overlay {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                width: 100%;
+                height: calc(100vh - var(--header-height));
+                background: rgba(0,0,0,0.5);
+                z-index: var(--z-mobile-nav-overlay); 
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity var(--transition-medium), visibility var(--transition-medium);
+            }
+            .nav-mobile-overlay.active {
+                opacity: 1;
+                visibility: visible;
             }
 
             .welcome-section h1 {
@@ -789,7 +999,6 @@
             }
         }
 
-        /* Utility Classes */
         .visually-hidden {
             position: absolute;
             width: 1px;
@@ -824,13 +1033,19 @@
             height: 1px;
             background: var(--accent-primary);
             transform: scaleX(0);
-            transform-origin: right;
+            transform-origin: right; 
             transition: transform var(--transition-fast);
+        }
+        html[dir="rtl"] .made-by a::after {
+            transform-origin: left;
         }
 
         .made-by a:hover::after {
             transform: scaleX(1);
-            transform-origin: left;
+            transform-origin: left; 
+        }
+        html[dir="rtl"] .made-by a:hover::after {
+            transform-origin: right;
         }
 
         .made-by a:hover {
@@ -847,7 +1062,28 @@
 </head>
 <body>
     <div class="app-shell">
-        <img src="img/logo.png" alt="learnfun.me logo" style="position: absolute; top: 20px; left: 20px; width: 50px; height: auto; z-index: 10;">
+        <header class="app-header">
+            <div class="header-content-wrapper">
+                <a href="#welcome" class="header-logo-link" aria-label="LearnFun Home">
+                    <img src="img/logo.png" alt="learnfun.me logo" class="header-logo">
+                    <span class="header-site-name">LearnFun</span>
+                </a>
+                <nav class="main-navigation" aria-label="Main menu">
+                    <button class="nav-toggle-button" aria-expanded="false" aria-controls="mainNavList">
+                        <span class="visually-hidden" data-translate-key-text="toggleNavigation"></span>
+                        <i class="fas fa-bars"></i>
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <ul class="nav-list" id="mainNavList">
+                        <li><a href="#welcome" class="nav-link" data-translate-key-text="navHome"></a></li>
+                        <li><a href="#mainContent" class="nav-link" data-translate-key-text="navDepartments"></a></li>
+                        <li><a href="#" onclick="showStaticPage('aboutUs'); return false;" class="nav-link" data-translate-key-text="linkAboutUs"></a></li>
+                        <li><a href="#" onclick="showStaticPage('contactUs'); return false;" class="nav-link" data-translate-key-text="linkContactUs"></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        
         <section class="welcome-section" id="welcome">
             <div class="language-switcher-container">
                 <label for="languageSelect" class="language-label" id="languageLabel">🌐</label>
@@ -855,7 +1091,7 @@
             </div>
             <h1 data-translate-key="welcomeTitle"></h1>
             <p class="subtitle" data-translate-key="welcomeSubtitle"></p>
-            <a href="#mainContent" class="cta-button" id="startExploringBtn" data-translate-key-text="exploreButton" role="button">
+            <a href="#mainContent" class="cta-button" id="startExploringBtn" role="button">
                 <span data-translate-key-text="exploreButton"></span>
             </a>
         </section>
@@ -915,7 +1151,7 @@
             en: { name: "English", dir: "ltr", font: "var(--font-en)" }
         };
 
-        // --- Translations Store (Content remains the same as provided initially) ---
+        // --- Translations Store ---
         const translations = {
             ar: {
                 pageTitle: "التعلم المرح",
@@ -936,7 +1172,6 @@
                 examModalInstruction3: "راجع إجاباتك قبل الإنهاء (في الامتحان الفعلي).",
                 examModalStartButton: "بدء المحاكاة",
                 closeButton: "إغلاق",
-                // deptToggleOpen and deptToggleClose are no longer used for icon text
                 privacyPolicyTitle: "سياسة الخصوصية",
                 privacyPolicyContent: `
                     <p>نحن نهتم بخصوصيتك. توضح سياسة الخصوصية هذه كيف نجمع ونستخدم ونحمي معلوماتك الشخصية عند استخدامك لمنصتنا.</p>
@@ -1006,7 +1241,10 @@
                 linkPrivacyPolicy: "سياسة الخصوصية",
                 linkAboutUs: "من نحن",
                 linkContactUs: "اتصل بنا",
-                linkTermsConditions: "شروط الاستخدام"
+                linkTermsConditions: "شروط الاستخدام",
+                navHome: "الرئيسية",
+                navDepartments: "الأقسام",
+                toggleNavigation: "تبديل القائمة"
             },
             en: {
                 pageTitle: "learn fun",
@@ -1027,7 +1265,6 @@
                 examModalInstruction3: "Review your answers before finishing (in a real exam).",
                 examModalStartButton: "Start Simulation",
                 closeButton: "Close",
-                // deptToggleOpen and deptToggleClose are no longer used for icon text
                 privacyPolicyTitle: "Privacy Policy",
                 privacyPolicyContent: `
                     <p>We care about your privacy. This Privacy Policy explains how we collect, use, and protect your personal information when you use our platform.</p>
@@ -1097,11 +1334,14 @@
                 linkPrivacyPolicy: "Privacy Policy",
                 linkAboutUs: "About Us",
                 linkContactUs: "Contact Us",
-                linkTermsConditions: "Terms & Conditions"
+                linkTermsConditions: "Terms & Conditions",
+                navHome: "Home",
+                navDepartments: "Departments",
+                toggleNavigation: "Toggle navigation"
             }
         };
 
-        // --- Department Data (Content remains the same as provided initially) ---
+        // --- Department Data ---
         const departmentsData = [
             {
                 id: "specific-edu", icon: "🎓",
@@ -1127,25 +1367,20 @@
         const placeholderContentDiv = document.getElementById('placeholderContent');
         const clearSearchBtn = document.getElementById('clearSearchBtn');
         const searchIconContainer = document.getElementById('searchIconContainer');
-
+        const navToggleButton = document.querySelector('.nav-toggle-button');
+        const mainNavList = document.getElementById('mainNavList');
+        let navMobileOverlay;
+        let departmentsRendered = false;
 
         // --- Language Initialization ---
         let currentLanguage = localStorage.getItem('portalLanguage');
-
         if (!currentLanguage || !supportedLanguages[currentLanguage]) {
             const browserLangFull = navigator.language || navigator.userLanguage || 'ar'; 
             const browserLangPrimary = browserLangFull.split('-')[0].toLowerCase(); 
-            
-            if (supportedLanguages[browserLangPrimary]) {
-                currentLanguage = browserLangPrimary;
-            } else {
-                currentLanguage = 'ar'; 
-            }
+            currentLanguage = supportedLanguages[browserLangPrimary] ? browserLangPrimary : 'ar';
             localStorage.setItem('portalLanguage', currentLanguage);
         }
         
-        let departmentsRendered = false;
-
         // --- Functions ---
         function populateLanguageSelector() {
             languageSelect.innerHTML = ''; 
@@ -1153,9 +1388,7 @@
                 const option = document.createElement('option');
                 option.value = langCode;
                 option.textContent = supportedLanguages[langCode].name;
-                if (langCode === currentLanguage) {
-                    option.selected = true;
-                }
+                option.selected = langCode === currentLanguage;
                 languageSelect.appendChild(option);
             });
         }
@@ -1167,18 +1400,6 @@
             htmlEl.lang = currentLanguage;
             htmlEl.dir = langConfig.dir;
             bodyEl.style.fontFamily = langConfig.font;
-            // bodyEl.className = currentLanguage; // Not strictly needed with dir attribute
-
-            if (langConfig.dir === 'rtl') { 
-                languageSelect.style.paddingLeft = '2.8em';
-                languageSelect.style.paddingRight = '1em';
-                languageSelect.style.backgroundPosition = 'left 0.8em top 50%, 0 0';
-            } else { 
-                languageSelect.style.paddingRight = '2.8em';
-                languageSelect.style.paddingLeft = '1em';
-                languageSelect.style.backgroundPosition = 'right 0.8em top 50%, 0 0';
-            }
-
             document.title = trans.pageTitle;
 
             document.querySelectorAll('[data-translate-key]').forEach(el => {
@@ -1187,21 +1408,19 @@
             });
             document.querySelectorAll('[data-translate-key-text]').forEach(el => {
                 const key = el.dataset.translateKeyText;
-                if (trans[key]) el.textContent = trans[key];
+                if (trans[key]) el.textContent = trans[key]; 
             });
             document.querySelectorAll('[data-translate-key-placeholder]').forEach(el => {
                 const key = el.dataset.translateKeyPlaceholder;
                 if (trans[key]) el.placeholder = trans[key];
             });
             
-            // Update ARIA labels for dynamically generated content if needed
-            clearSearchBtn.setAttribute('aria-label', trans.closeButton || 'Clear search'); // Assuming 'closeButton' can be reused or add a specific one
+            clearSearchBtn.setAttribute('aria-label', trans.closeButton || 'Clear search'); 
             clearSearchBtn.setAttribute('title', trans.closeButton || 'Clear search');
 
-
             if (departmentsRendered) {
-                renderDepartments(); // This will re-render with new language
-                if (mainSearchInput.value) filterContent(); // Re-apply filter
+                renderDepartments(); 
+                if (mainSearchInput.value) filterContent(); 
             }
         }
         
@@ -1209,12 +1428,16 @@
             currentLanguage = event.target.value;
             localStorage.setItem('portalLanguage', currentLanguage); 
             applyTranslations();
+            if (mainNavList && mainNavList.classList.contains('active')) { 
+                toggleMobileNav(); 
+                setTimeout(toggleMobileNav, 0); 
+            }
         }
 
         function updateClearSearchBtn() {
             if (mainSearchInput.value) {
                 clearSearchBtn.classList.add('visible');
-                clearSearchBtn.style.display = 'flex'; // Changed from block for flex alignment
+                clearSearchBtn.style.display = 'flex'; 
             } else {
                 clearSearchBtn.classList.remove('visible');
                 clearSearchBtn.style.display = 'none';
@@ -1224,7 +1447,6 @@
         function renderDepartments(filteredData) {
             const lang = currentLanguage;
             const dataToRender = filteredData || departmentsData;
-            // const langConfig = supportedLanguages[lang]; // Not directly used for margin anymore due to margin-inline-end
 
             departmentsListContainer.innerHTML = '';
             if (dataToRender.length === 0) {
@@ -1245,7 +1467,7 @@
                 headerDiv.setAttribute('aria-controls', `subjects-${dept.id}`);
                 headerDiv.tabIndex = 0;
                 headerDiv.setAttribute('role', 'button');
-                headerDiv.setAttribute('aria-label', `${dept.name[lang]}`); // More specific label
+                headerDiv.setAttribute('aria-label', `${dept.name[lang]}`); 
                 
                 headerDiv.innerHTML = `
                     <h3><span class="dept-icon">${dept.icon || '📚'}</span> ${dept.name[lang]}</h3>
@@ -1260,9 +1482,6 @@
                     dept.subjects.forEach(subject => {
                         const subjectLi = document.createElement('li');
                         subjectLi.className = 'subject-item';
-                        // Storing names for multi-lang search might be complex, rely on current lang search
-                        // Or create a concatenated searchable string if needed:
-                        // subjectLi.dataset.searchableNames = Object.values(subject.name).join(' ').toLowerCase();
                         subjectLi.innerHTML = `<a href="#exam/${subject.code}" onclick="showExamSimulationPage('${subject.name[lang]}', '${subject.code}'); return false;"><span class="subject-icon">${subject.icon || '📖'}</span>${subject.name[lang]} (${subject.code})</a>`;
                         subjectListUl.appendChild(subjectLi);
                     });
@@ -1277,7 +1496,6 @@
                 headerDiv.addEventListener('click', function() {
                     const isActive = this.classList.toggle('active');
                     this.setAttribute('aria-expanded', isActive.toString());
-                    // SVG rotation is handled by CSS based on .active class
                 });
                 headerDiv.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' || e.key === ' ') {
@@ -1291,19 +1509,13 @@
 
         function filterContent() {
             const searchTerm = mainSearchInput.value.toLowerCase().trim();
-            // const lang = currentLanguage; // No longer needed for filtering logic
-
             const displayData = departmentsData.map(dept => {
                 const deptNameMatches = (dept.name.ar.toLowerCase().includes(searchTerm) || dept.name.en.toLowerCase().includes(searchTerm));
                 const filteredSubjects = dept.subjects.filter(subject =>
                     (subject.name.ar.toLowerCase().includes(searchTerm) || subject.name.en.toLowerCase().includes(searchTerm) || subject.code.toLowerCase().includes(searchTerm))
                 );
-
                 if (deptNameMatches || filteredSubjects.length > 0) {
-                    return {
-                        ...dept,
-                        subjects: (filteredSubjects.length > 0) ? filteredSubjects : (deptNameMatches ? dept.subjects : [])
-                    };
+                    return { ...dept, subjects: (filteredSubjects.length > 0) ? filteredSubjects : (deptNameMatches ? dept.subjects : []) };
                 }
                 return null;
             }).filter(dept => dept !== null);
@@ -1314,14 +1526,10 @@
                 document.querySelectorAll('.department-card').forEach(card => {
                     const header = card.querySelector('.department-header');
                     const subjectList = card.querySelector('.subject-list');
-                    if (subjectList && subjectList.children.length > 0 ) {
-                         // Check if there are actual subjects, not just the "no subjects" message
-                        let hasRealSubjects = false;
-                        for(let item of subjectList.children) { 
-                            if(item.querySelector('a')) { hasRealSubjects = true; break; } 
-                        }
+                    if (subjectList && subjectList.children.length > 0 ) { 
+                        let hasRealSubjects = Array.from(subjectList.children).some(item => item.querySelector('a'));
                         if(hasRealSubjects && !header.classList.contains('active')) { 
-                            header.classList.add('active'); // Use classList.add instead of click() to avoid multiple event triggers
+                            header.classList.add('active'); 
                             header.setAttribute('aria-expanded', 'true');
                         }
                     }
@@ -1332,59 +1540,40 @@
         window.showInfoPage = function(title, contentHTML, closeButtonTextKey = 'closeButton') {
             const lang = currentLanguage;
             const closeButtonLabel = translations[lang][closeButtonTextKey] || "Close";
+            const closeIconHTML = SVG_ICONS.clear || '<i class="fas fa-times"></i>';
             placeholderContentDiv.innerHTML = `
-                <button class="close-btn" onclick="hideInfoPage()" aria-label="${closeButtonLabel}" title="${closeButtonLabel}" tabindex="0">${SVG_ICONS.clear}</button>
-                <h2>${title}</h2>
+                <button class="close-btn" onclick="hideInfoPage()" aria-label="${closeButtonLabel}" title="${closeButtonLabel}" tabindex="0">${closeIconHTML}</button>
+                <h2 id="placeholderTitle">${title}</h2> 
                 <div>${contentHTML}</div>
             `;
+            const placeholderTitleEl = document.getElementById('placeholderTitle');
+            if(placeholderTitleEl) placeholderTitleEl.classList.remove('visually-hidden');
+
             placeholderOverlay.classList.add('visible');
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; 
             setTimeout(() => {
                 const closeBtn = placeholderContentDiv.querySelector('.close-btn');
                 if (closeBtn) closeBtn.focus();
-            }, 150); // Slightly longer delay for transition
+            }, 150); 
         }
 
         window.hideInfoPage = function() {
             placeholderOverlay.classList.remove('visible');
-            placeholderContentDiv.innerHTML = ''; // Clear content to free resources
-            document.body.style.overflow = '';
+            document.body.style.overflow = ''; 
         }
 
         window.showExamSimulationPage = function(subjectName, subjectCode) {
             const lang = currentLanguage;
             const trans = translations[lang];
-            
-            // Define exam links for specific subjects
             const examLinks = {
-                'MED101': {
-                    ar: 'https://learnfun.me/Faculty-of-Specific-Education/2/exam.html',
-                    en: 'https://learnfun.me/Faculty-of-Specific-Education/2/exam.html'
-                },
-                'EDU201': {
-                    ar: 'https://learnfun.me/Faculty-of-Specific-Education/31/exam.html',
-                    en: 'https://learnfun.me/Faculty-of-Specific-Education/31/exam.html'
-                },
-                'SKL301': {
-                    ar: 'https://learnfun.me/Faculty-of-Specific-Education/28/exam.html',
-                    en: 'https://learnfun.me/Faculty-of-Specific-Education/28/exam.html'
-                },
-                'ELE401': {
-                    ar: 'https://learnfun.me/Faculty-of-Specific-Education/24/exam.html',
-                    en: 'https://learnfun.me/Faculty-of-Specific-Education/24/exam.html'
-                }
+                'MED101': { ar: 'https://learnfun.me/Faculty-of-Specific-Education/2/exam.html', en: 'https://learnfun.me/Faculty-of-Specific-Education/2/exam.html' },
+                'EDU201': { ar: 'https://learnfun.me/Faculty-of-Specific-Education/31/exam.html', en: 'https://learnfun.me/Faculty-of-Specific-Education/31/exam.html' },
+                'SKL301': { ar: 'https://learnfun.me/Faculty-of-Specific-Education/28/exam.html', en: 'https://learnfun.me/Faculty-of-Specific-Education/28/exam.html' },
+                'ELE401': { ar: 'https://learnfun.me/Faculty-of-Specific-Education/24/exam.html', en: 'https://learnfun.me/Faculty-of-Specific-Education/24/exam.html' }
             };
-
-            let exampleParagraph = ""; 
-            if (lang === 'ar') {
-                exampleParagraph = `<p>هذه واجهة توضيحية. في التطبيق الفعلي، سيتم عرض أسئلة الامتحان هنا.</p>
-                    <p>يمكنك الوصول إلى امتحانات ${subjectName} من خلال الرابط التالي:</p>
-                    <p><a href="${examLinks[subjectCode]?.[lang] || '#'}" class="exam-link">الذهاب إلى امتحانات ${subjectName}</a></p>`;
-            } else if (lang === 'en') {
-                exampleParagraph = `<p>This is a demonstrative interface. In a real application, exam questions would be displayed here.</p>
-                    <p>You can access ${subjectName} exams through the following link:</p>
-                    <p><a href="${examLinks[subjectCode]?.[lang] || '#'}" class="exam-link">Go to ${subjectName} Exams</a></p>`;
-            }
+            let exampleParagraph = lang === 'ar' ? 
+                `<p>هذه واجهة توضيحية. في التطبيق الفعلي، سيتم عرض أسئلة الامتحان هنا.</p><p>يمكنك الوصول إلى امتحانات ${subjectName} من خلال الرابط التالي:</p><p><a href="${examLinks[subjectCode]?.[lang] || '#'}" class="exam-link">الذهاب إلى امتحانات ${subjectName}</a></p>` : 
+                `<p>This is a demonstrative interface. In a real application, exam questions would be displayed here.</p><p>You can access ${subjectName} exams through the following link:</p><p><a href="${examLinks[subjectCode]?.[lang] || '#'}" class="exam-link">Go to ${subjectName} Exams</a></p>`;
 
             const examContent = `
                 <p>${trans.examModalIntro}<strong>${subjectName} (${subjectCode})</strong>.</p>
@@ -1396,17 +1585,16 @@
                         <li>${trans.examModalInstruction2}</li>
                         <li>${trans.examModalInstruction3}</li>
                     </ul>
-                    <button onclick="window.location.href='${examLinks[subjectCode]?.[lang] || '#'}'" style="margin-top:20px; padding: 12px 25px; background-color: #28a745; color:white; border:none; border-radius:var(--border-radius-sm); cursor:pointer; font-size:1em; transition: background-color var(--transition-fast);">${trans.examModalStartButton}</button>
+                    <button onclick="window.location.href='${examLinks[subjectCode]?.[lang] || '#'}'" style="margin-top:20px; padding: 12px 25px; background-color: var(--accent-success); color:white; border:none; border-radius:var(--border-radius-sm); cursor:pointer; font-size:1em; transition: background-color var(--transition-fast);">${trans.examModalStartButton}</button>
                 </div>
             `;
-
-            // Add hover effect to the start button within the exam simulation
             showInfoPage(`${trans.examModalTitlePrefix}${subjectName}`, examContent);
             setTimeout(() => {
-                const startSimButton = placeholderContentDiv.querySelector('button[style*="background-color: #28a745"]');
+                const startSimButton = placeholderContentDiv.querySelector('button[onclick*="window.location.href"]');
                 if(startSimButton) {
-                    startSimButton.onmouseover = () => startSimButton.style.backgroundColor = '#218838';
-                    startSimButton.onmouseout = () => startSimButton.style.backgroundColor = '#28a745';
+                    const originalBg = getComputedStyle(startSimButton).backgroundColor;
+                    startSimButton.onmouseover = () => startSimButton.style.backgroundColor = '#0E8A60'; 
+                    startSimButton.onmouseout = () => startSimButton.style.backgroundColor = originalBg;
                 }
             }, 0);
         }
@@ -1424,26 +1612,22 @@
                     `${today.getDate()}/${String(today.getMonth() + 1).padStart(2, '0')}/${today.getFullYear()}` : 
                     `${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getDate()).padStart(2, '0')}/${today.getFullYear()}`;
                 
-                let pageContent = trans[contentKey];
-                pageContent = pageContent.replace(/\[أدخل تاريخ اليوم\]|\[Enter Today's Date\]/gi, formattedDate);
-
-                // Add keyboard navigation support
+                let pageContent = trans[contentKey].replace(/\[أدخل تاريخ اليوم\]|\[Enter Today's Date\]/gi, formattedDate);
+                showInfoPage(pageTitle, pageContent);
                 const closeBtn = placeholderContentDiv.querySelector('.close-btn');
                 if (closeBtn) {
-                    closeBtn.addEventListener('keydown', function(e) {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            hideInfoPage();
-                        }
-                    });
+                    closeBtn.removeEventListener('keydown', handleModalCloseKeydown); 
+                    closeBtn.addEventListener('keydown', handleModalCloseKeydown);
                 }
-
-                showInfoPage(pageTitle, pageContent);
             } else {
                 console.error(`Translations not found for page: ${pageKey} in language: ${lang}`);
-                const errorTitle = translations[lang].errorTitle || (lang === 'ar' ? "خطأ" : "Error");
-                const errorContent = translations[lang].errorContent || (lang === 'ar' ? "<p>المحتوى غير متوفر.</p>" : "<p>Content not available.</p>");
-                showInfoPage(errorTitle, errorContent);
+                showInfoPage(translations[lang].errorTitle || "Error", translations[lang].errorContent || "<p>Content not available.</p>");
+            }
+        }
+        function handleModalCloseKeydown(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                hideInfoPage();
             }
         }
         
@@ -1452,57 +1636,59 @@
             if (clearSearchBtn) clearSearchBtn.innerHTML = SVG_ICONS.clear;
         }
 
+        function createMobileOverlay() {
+            if (document.querySelector('.nav-mobile-overlay')) return; 
+            navMobileOverlay = document.createElement('div');
+            navMobileOverlay.className = 'nav-mobile-overlay';
+            document.body.appendChild(navMobileOverlay);
+            navMobileOverlay.addEventListener('click', toggleMobileNav);
+        }
+
+        function toggleMobileNav() {
+            const isActive = mainNavList.classList.toggle('active');
+            navToggleButton.setAttribute('aria-expanded', isActive.toString());
+            const openIcon = navToggleButton.querySelector('.fa-bars');
+            const closeIcon = navToggleButton.querySelector('.fa-times');
+            if (openIcon && closeIcon) {
+                openIcon.style.display = isActive ? 'none' : 'inline';
+                closeIcon.style.display = isActive ? 'inline' : 'none';
+            }
+            if (navMobileOverlay) navMobileOverlay.classList.toggle('active', isActive);
+            document.body.style.overflow = isActive ? 'hidden' : '';
+            if (!isActive) document.body.style.overflow = '';
+        }
+
         // --- Event Listeners ---
         languageSelect.addEventListener('change', handleLanguageChange);
-
         startExploringBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            mainContentArea.classList.add('visible');
-            if (!departmentsRendered) renderDepartments(); // Render if not already done
-            setTimeout(() => { 
-                const targetElement = document.getElementById('mainContent'); // Ensure it targets the right element
-                if(targetElement) targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' }); 
-            }, 100);
+            const targetElement = document.getElementById('mainContent');
+            if(targetElement) targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
-
-        mainSearchInput.addEventListener('input', function() {
-            updateClearSearchBtn();
-            filterContent();
-        });
-        clearSearchBtn.addEventListener('click', function() {
-            mainSearchInput.value = '';
-            updateClearSearchBtn();
-            filterContent();
-            mainSearchInput.focus();
-        });
+        mainSearchInput.addEventListener('input', () => { updateClearSearchBtn(); filterContent(); });
+        clearSearchBtn.addEventListener('click', () => { mainSearchInput.value = ''; updateClearSearchBtn(); filterContent(); mainSearchInput.focus(); });
         mainSearchInput.addEventListener('focus', updateClearSearchBtn);
-        // No blur listener for clear button to prevent it from disappearing before click registers
-        
-        placeholderOverlay.addEventListener('click', (e) => {
-            if (e.target === placeholderOverlay) hideInfoPage();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && placeholderOverlay.classList.contains('visible')) {
-                hideInfoPage();
-            }
+        placeholderOverlay.addEventListener('click', (e) => { if (e.target === placeholderOverlay) hideInfoPage(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && placeholderOverlay.classList.contains('visible')) hideInfoPage(); });
+        document.querySelectorAll('.footer-links a').forEach(link => {
+            link.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }});
         });
 
-        // Add keyboard navigation for footer links
-        document.querySelectorAll('.footer-links a').forEach(link => {
-            link.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    this.click();
-                }
+        if (navToggleButton && mainNavList) {
+            createMobileOverlay();
+            navToggleButton.addEventListener('click', toggleMobileNav);
+            mainNavList.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', () => { if (mainNavList.classList.contains('active')) toggleMobileNav(); });
             });
-        });
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mainNavList.classList.contains('active')) toggleMobileNav(); });
+        }
 
         // --- Initial Load ---
         initializeIcons();
         populateLanguageSelector(); 
-        applyTranslations();      
+        applyTranslations(); 
+        renderDepartments(); 
         updateClearSearchBtn();
-
     </script>
 </body>
 </html>
